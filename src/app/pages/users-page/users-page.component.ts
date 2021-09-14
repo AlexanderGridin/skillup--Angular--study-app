@@ -20,7 +20,6 @@ export class UsersPageComponent implements OnInit {
     this.usersStateService.getAllUsers().subscribe({
       next: (usersFromState: User[]): void => {
         this.users = usersFromState;
-        console.log(usersFromState);
       },
     });
   }
