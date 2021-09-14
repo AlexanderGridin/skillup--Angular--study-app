@@ -1,44 +1,79 @@
 <p>add-user-form works!</p>
-<form
-  [formGroup]="form"
-  action=""
-  class="add-user-form"
-  (ngSubmit)="handleSubmit()"
+
+<button kendoButton (click)="showModal()">Add user</button>
+
+<kendo-dialog
+  title="Add user"
+  *ngIf="isModalVisible"
+  (close)="closeModal()"
+  [minWidth]="250"
+  [width]="450"
 >
-  <kendo-textbox
-    formControlName="userName"
-    placeholder="Enter Name"
-    showSuccessIcon="initial"
-    showErrorIcon="initial"
-  ></kendo-textbox>
-
-  <kendo-dropdownlist
-    formControlName="gender"
-    [data]="genderFormOptionsWithoutDefault"
-    [defaultItem]="defaultGenderFormOption"
-    textField="text"
-    valueField="value"
-    [valuePrimitive]="true"
+  <form
+    [formGroup]="form"
+    action=""
+    class="add-user-form"
+    (ngSubmit)="handleSubmit()"
   >
-  </kendo-dropdownlist>
+    <div class="add-user-form__item">
+      <kendo-textbox
+        class="add-user-form__control"
+        formControlName="userName"
+        placeholder="Enter Name"
+        showSuccessIcon="initial"
+        showErrorIcon="initial"
+      ></kendo-textbox>
+    </div>
 
-  <kendo-datepicker formControlName="dateOfBirth"></kendo-datepicker>
+    <div class="add-user-form__item">
+      <kendo-dropdownlist
+        class="add-user-form__control"
+        formControlName="gender"
+        [data]="genderFormOptionsWithoutDefault"
+        [defaultItem]="defaultGenderFormOption"
+        textField="text"
+        valueField="value"
+        [valuePrimitive]="true"
+      >
+      </kendo-dropdownlist>
+    </div>
 
-  <kendo-dropdownlist
-    formControlName="educationDirections"
-    [data]="directionOfStudyFormOptionsWithoutDefault"
-    [defaultItem]="defaultDirectionOfStudyFormOption"
-    textField="text"
-    valueField="value"
-    [valuePrimitive]="true"
-  >
-  </kendo-dropdownlist>
+    <div class="add-user-form__item">
+      <kendo-datepicker
+        class="add-user-form__control"
+        formControlName="dateOfBirth"
+      ></kendo-datepicker>
+    </div>
 
-  <kendo-datepicker formControlName="educationStartDate"></kendo-datepicker>
+    <div class="add-user-form__item">
+      <kendo-dropdownlist
+        class="add-user-form__control"
+        formControlName="educationDirections"
+        [data]="directionOfStudyFormOptionsWithoutDefault"
+        [defaultItem]="defaultDirectionOfStudyFormOption"
+        textField="text"
+        valueField="value"
+        [valuePrimitive]="true"
+      >
+      </kendo-dropdownlist>
+    </div>
 
-  <kendo-datepicker formControlName="educationEndDate"></kendo-datepicker>
+    <div class="add-user-form__item">
+      <kendo-datepicker
+        class="add-user-form__control"
+        formControlName="educationStartDate"
+      ></kendo-datepicker>
+    </div>
 
-  <div class="add-user-form__actions">
-    <button kendoButton [primary]="true" type="submit">Add user</button>
-  </div>
-</form>
+    <div class="add-user-form__item">
+      <kendo-datepicker
+        class="add-user-form__control"
+        formControlName="educationEndDate"
+      ></kendo-datepicker>
+    </div>
+
+    <div class="add-user-form__actions">
+      <button kendoButton [primary]="true" type="submit">Add user</button>
+    </div>
+  </form>
+</kendo-dialog>

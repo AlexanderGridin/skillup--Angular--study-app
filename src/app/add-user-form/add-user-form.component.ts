@@ -36,6 +36,8 @@ export class AddUserFormComponent implements OnInit {
 
   public currentDate: Date = new Date();
 
+  public isModalVisible: boolean = false;
+
   constructor(
     private gendersService: GendersService,
     private directionsOfStudySerivce: DirectionsOfStudyService
@@ -77,7 +79,16 @@ export class AddUserFormComponent implements OnInit {
     }
 
     console.log('form submitted valid');
-    console.log(this.form.controls);
-    console.log(this.form.status);
+    console.log(this.form.value);
+    this.closeModal();
+  }
+
+  // We can't use method like toogleModalVisibility(), beacause (close) action of kendo-dialog component calls this method twice
+  public showModal(): void {
+    this.isModalVisible = true;
+  }
+
+  public closeModal(): void {
+    this.isModalVisible = false;
   }
 }

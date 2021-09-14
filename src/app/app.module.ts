@@ -14,6 +14,8 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 
 import { GendersService } from './services/genders/genders.service';
 import { DirectionsOfStudyService } from './services/directions-of-study/directions-of-study.service';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+
 
 @NgModule({
   declarations: [AppComponent, TestCmpComponent, AddUserFormComponent],
@@ -26,6 +28,7 @@ import { DirectionsOfStudyService } from './services/directions-of-study/directi
     DateInputsModule,
     ButtonsModule,
     InputsModule,
+    DialogsModule,
   ],
   providers: [GendersService, DirectionsOfStudyService],
   bootstrap: [AppComponent],

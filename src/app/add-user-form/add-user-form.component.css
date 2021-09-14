@@ -1,0 +1,11 @@
+.add-user-form__item + .add-user-form__item {
+  margin-top: 15px;
+}
+
+.add-user-form__control {
+  width: 100%;
+}
+
+.add-user-form__actions {
+  padding-top: 15px;
+}
