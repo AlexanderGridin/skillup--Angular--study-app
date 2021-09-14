@@ -12,6 +12,8 @@ import { DirectionsOfStudyService } from '../services/directions-of-study/direct
 
 import { FormOptionDataObject } from '../interfaces/form-option-data-object';
 
+import { ValidateInputLength } from '../custom-form-validators/input-length-validator';
+
 @Component({
   selector: 'app-add-user-form',
   templateUrl: './add-user-form.component.html',
@@ -51,8 +53,9 @@ export class AddUserFormComponent implements OnInit {
     this.form = new FormGroup({
       userName: new FormControl('', [
         Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(15),
+        // Validators.minLength(5),
+        // Validators.maxLength(15),
+        ValidateInputLength,
       ]),
       gender: new FormControl(this.defaultGenderFormOption.value),
       dateOfBirth: new FormControl(this.currentDate, [Validators.required]),
