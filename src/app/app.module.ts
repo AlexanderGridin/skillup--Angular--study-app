@@ -8,19 +8,32 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TestCmpComponent } from './components/test-cmp/test-cmp.component';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
-import { AddUserFormComponent } from './add-user-form/add-user-form.component';
+import { AddUserFormComponent } from './components/add-user-form/add-user-form.component';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 
 import { GendersService } from './services/genders/genders.service';
 import { DirectionsOfStudyService } from './services/directions-of-study/directions-of-study.service';
+import { UsersStateService } from './services/users-state/users-state.service';
+import { UsersService } from './services/users/users.service';
+
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { StoreModule } from '@ngrx/store';
 
 import { usersReducer } from './store/users/users.reducer';
+import { UsersPageComponent } from './pages/users-page/users-page.component';
+import { PageTitleComponent } from './components/page-title/page-title.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
 
 @NgModule({
-  declarations: [AppComponent, TestCmpComponent, AddUserFormComponent],
+  declarations: [
+    AppComponent,
+    TestCmpComponent,
+    AddUserFormComponent,
+    UsersPageComponent,
+    PageTitleComponent,
+    AddUserComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -33,7 +46,12 @@ import { usersReducer } from './store/users/users.reducer';
     DialogsModule,
     StoreModule.forRoot({ users: usersReducer }),
   ],
-  providers: [GendersService, DirectionsOfStudyService],
+  providers: [
+    GendersService,
+    DirectionsOfStudyService,
+    UsersStateService,
+    UsersService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

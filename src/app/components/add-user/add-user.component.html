@@ -1,0 +1,10 @@
+<button kendoButton (click)="showModal()">Add user</button>
+<kendo-dialog
+  title="Add user"
+  *ngIf="isModalVisible"
+  (close)="closeModal()"
+  [minWidth]="250"
+  [width]="450"
+>
+  <add-user-form (onSubmit)="handleFormSubmit($event)"></add-user-form>
+</kendo-dialog>

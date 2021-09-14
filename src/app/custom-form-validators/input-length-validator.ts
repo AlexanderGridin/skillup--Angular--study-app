@@ -4,7 +4,7 @@ import { ValidationErrors } from '@angular/forms';
 export const ValidateInputLength = (
   control: AbstractControl
 ): ValidationErrors | null => {
-  if (control.value.length < 3) {
+  if (control.value && control.value.length < 3) {
     return { invalidTitleLength: true };
   }
 
