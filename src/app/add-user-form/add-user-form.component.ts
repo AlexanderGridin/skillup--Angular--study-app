@@ -59,7 +59,7 @@ export class AddUserFormComponent implements OnInit {
       ]),
       gender: new FormControl(this.defaultGenderFormOption.value),
       dateOfBirth: new FormControl(this.currentDate, [Validators.required]),
-      educationDirections: new FormControl(
+      educationDirection: new FormControl(
         this.defaultDirectionOfStudyFormOption.value,
         [Validators.required]
       ),

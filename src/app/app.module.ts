@@ -15,7 +15,9 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { GendersService } from './services/genders/genders.service';
 import { DirectionsOfStudyService } from './services/directions-of-study/directions-of-study.service';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
+import { StoreModule } from '@ngrx/store';
 
+import { usersReducer } from './store/users/users.reducer';
 
 @NgModule({
   declarations: [AppComponent, TestCmpComponent, AddUserFormComponent],
@@ -29,6 +31,7 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
     ButtonsModule,
     InputsModule,
     DialogsModule,
+    StoreModule.forRoot({ users: usersReducer }),
   ],
   providers: [GendersService, DirectionsOfStudyService],
   bootstrap: [AppComponent],
