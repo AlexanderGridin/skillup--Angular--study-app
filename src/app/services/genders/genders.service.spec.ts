@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GenderService } from './gender.service';
+import { GendersService } from './genders.service';
 
-describe('GenderService', () => {
-  let service: GenderService;
+describe('GendersService', () => {
+  let service: GendersService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GenderService);
+    service = TestBed.inject(GendersService);
   });
 
   it('should be created', () => {

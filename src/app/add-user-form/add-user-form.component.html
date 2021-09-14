@@ -1,8 +1,8 @@
 <p>add-user-form works!</p>
 <form
+  [formGroup]="form"
   action=""
   class="add-user-form"
-  [formGroup]="form"
   (ngSubmit)="handleSubmit()"
 >
   <kendo-textbox
@@ -13,12 +13,30 @@
   ></kendo-textbox>
 
   <kendo-dropdownlist
-    [data]="dropdownGenders"
-    [defaultItem]="defaultGender"
+    formControlName="gender"
+    [data]="genderFormOptionsWithoutDefault"
+    [defaultItem]="defaultGenderFormOption"
     textField="text"
     valueField="value"
+    [valuePrimitive]="true"
   >
   </kendo-dropdownlist>
+
+  <kendo-datepicker formControlName="dateOfBirth"></kendo-datepicker>
+
+  <kendo-dropdownlist
+    formControlName="educationDirections"
+    [data]="directionOfStudyFormOptionsWithoutDefault"
+    [defaultItem]="defaultDirectionOfStudyFormOption"
+    textField="text"
+    valueField="value"
+    [valuePrimitive]="true"
+  >
+  </kendo-dropdownlist>
+
+  <kendo-datepicker formControlName="educationStartDate"></kendo-datepicker>
+
+  <kendo-datepicker formControlName="educationEndDate"></kendo-datepicker>
 
   <div class="add-user-form__actions">
     <button kendoButton [primary]="true" type="submit">Add user</button>

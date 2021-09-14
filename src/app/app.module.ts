@@ -12,7 +12,8 @@ import { AddUserFormComponent } from './add-user-form/add-user-form.component';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 
-import { GenderService } from './services/gender/gender.service';
+import { GendersService } from './services/genders/genders.service';
+import { DirectionsOfStudyService } from './services/directions-of-study/directions-of-study.service';
 
 @NgModule({
   declarations: [AppComponent, TestCmpComponent, AddUserFormComponent],
@@ -26,7 +27,7 @@ import { GenderService } from './services/gender/gender.service';
     ButtonsModule,
     InputsModule,
   ],
-  providers: [GenderService],
+  providers: [GendersService, DirectionsOfStudyService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

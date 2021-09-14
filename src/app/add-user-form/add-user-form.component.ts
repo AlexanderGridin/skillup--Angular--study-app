@@ -7,9 +7,10 @@ import {
   AbstractControl,
 } from '@angular/forms';
 
-import { GenderService } from '../services/gender/gender.service';
+import { GendersService } from '../services/genders/genders.service';
+import { DirectionsOfStudyService } from '../services/directions-of-study/directions-of-study.service';
 
-import { GenderFormOption } from '../interfaces/gender-form-option';
+import { FormOptionDataObject } from '../interfaces/form-option-data-object';
 
 @Component({
   selector: 'app-add-user-form',
@@ -18,27 +19,65 @@ import { GenderFormOption } from '../interfaces/gender-form-option';
 })
 export class AddUserFormComponent implements OnInit {
   public form!: FormGroup;
-  public gendersFormOptions: GenderFormOption[] =
-    this.genderService.createFormOptionsData();
-  public defaultGender: GenderFormOption = this.gendersFormOptions[0];
-  public dropdownGenders: GenderFormOption[] =
-    this.gendersFormOptions.splice(1);
 
-  constructor(private genderService: GenderService) {}
+  public genderFormOptions: FormOptionDataObject[] =
+    this.gendersService.createFormOptions();
+  public defaultGenderFormOption: FormOptionDataObject =
+    this.genderFormOptions[0];
+  public genderFormOptionsWithoutDefault: FormOptionDataObject[] =
+    this.genderFormOptions.splice(1);
+
+  public diresctionsOfStudyFormOptions: FormOptionDataObject[] =
+    this.directionsOfStudySerivce.createFormOptions();
+  public defaultDirectionOfStudyFormOption: FormOptionDataObject =
+    this.diresctionsOfStudyFormOptions[0];
+  public directionOfStudyFormOptionsWithoutDefault: FormOptionDataObject[] =
+    this.diresctionsOfStudyFormOptions.splice(1);
+
+  public currentDate: Date = new Date();
+
+  constructor(
+    private gendersService: GendersService,
+    private directionsOfStudySerivce: DirectionsOfStudyService
+  ) {}
 
   public ngOnInit(): void {
     this.initForm();
   }
 
   public initForm(): void {
-    console.log('init form');
     this.form = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
+      userName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(15),
+      ]),
+      gender: new FormControl(this.defaultGenderFormOption.value),
+      dateOfBirth: new FormControl(this.currentDate, [Validators.required]),
+      educationDirections: new FormControl(
+        this.defaultDirectionOfStudyFormOption.value,
+        [Validators.required]
+      ),
+      educationStartDate: new FormControl(this.currentDate, [
+        Validators.required,
+      ]),
+      educationEndDate: new FormControl(this.currentDate),
     });
   }
 
   public handleSubmit(): void {
     console.log('form submitted');
-    console.log(this.form.value);
+
+    if (this.form.status === 'INVALID') {
+      if (this.form.value.userName === '') {
+        this.form.controls.userName.markAsTouched();
+      }
+
+      return;
+    }
+
+    console.log('form submitted valid');
+    console.log(this.form.controls);
+    console.log(this.form.status);
   }
 }
