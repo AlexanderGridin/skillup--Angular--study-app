@@ -24,6 +24,8 @@ import { usersReducer } from './store/users/users.reducer';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { PageTitleComponent } from './components/page-title/page-title.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
+import { ContainerComponent } from './components/container/container.component';
+import { UsersTableComponent } from './components/users-table/users-table.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { AddUserComponent } from './components/add-user/add-user.component';
     UsersPageComponent,
     PageTitleComponent,
     AddUserComponent,
+    ContainerComponent,
+    UsersTableComponent,
   ],
   imports: [
     BrowserModule,

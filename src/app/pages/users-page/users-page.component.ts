@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
 import { UsersStateService } from 'src/app/services/users-state/users-state.service';
-import { DEFAULT_DATE_FORMAT } from 'src/app/constants/defaultDateFormat';
-import { Format } from 'src/app/interfaces/format';
 
 @Component({
   selector: 'users-page',
@@ -11,7 +9,6 @@ import { Format } from 'src/app/interfaces/format';
 })
 export class UsersPageComponent implements OnInit {
   public users!: User[];
-  public dateFormat: Format = DEFAULT_DATE_FORMAT;
 
   constructor(private usersStateService: UsersStateService) {}
 

@@ -1,28 +1,7 @@
-<page-title> Users </page-title>
+<container>
+  <page-title> Users </page-title>
 
-<add-user></add-user>
+  <add-user></add-user>
 
-<kendo-grid [data]="users">
-  <kendo-grid-column field="userName" title="User name"> </kendo-grid-column>
-  <kendo-grid-column field="gender" title="Gender"> </kendo-grid-column>
-  <kendo-grid-column
-    field="dateOfBirth"
-    title="dateOfBirth"
-    [format]="dateFormat"
-  >
-  </kendo-grid-column>
-  <kendo-grid-column field="educationDirection" title="Education direction">
-  </kendo-grid-column>
-  <kendo-grid-column
-    field="educationStartDate"
-    title="Education start date"
-    [format]="dateFormat"
-  >
-  </kendo-grid-column>
-  <kendo-grid-column
-    field="educationEndDate"
-    title="Education end date"
-    [format]="dateFormat"
-  >
-  </kendo-grid-column>
-</kendo-grid>
+  <users-table [users]="users"></users-table>
+</container>

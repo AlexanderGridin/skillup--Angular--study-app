@@ -9,7 +9,6 @@ import {
 
 import { GendersService } from '../../services/genders/genders.service';
 import { DirectionsOfStudyService } from '../../services/directions-of-study/directions-of-study.service';
-import { UsersStateService } from 'src/app/services/users-state/users-state.service';
 
 import { FormOptionDataObject } from '../../interfaces/form-option-data-object';
 
@@ -43,11 +42,11 @@ export class AddUserFormComponent implements OnInit {
   public currentDate: Date = new Date();
 
   @Output() onSubmit: EventEmitter<User> = new EventEmitter<User>();
+  @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
 
   constructor(
     private gendersService: GendersService,
     private directionsOfStudySerivce: DirectionsOfStudyService,
-    private usersStateService: UsersStateService,
     private usersService: UsersService
   ) {}
 
@@ -104,5 +103,9 @@ export class AddUserFormComponent implements OnInit {
 
   private resetForm(): void {
     this.form.controls.userName.reset('');
+  }
+
+  public handleCancel(event: Event): void {
+    this.onCancel.emit(event);
   }
 }

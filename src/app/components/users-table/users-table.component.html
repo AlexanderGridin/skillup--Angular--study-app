@@ -1,0 +1,47 @@
+<kendo-grid [data]="users" scrollable="none">
+  <kendo-grid-column
+    field="userName"
+    title="User name"
+    [headerStyle]="headerStyle"
+    [style]="style"
+  >
+  </kendo-grid-column>
+  <kendo-grid-column
+    field="gender"
+    title="Gender"
+    [headerStyle]="headerStyle"
+    [style]="style"
+  >
+  </kendo-grid-column>
+  <kendo-grid-column
+    field="dateOfBirth"
+    title="Date of birth"
+    [format]="dateFormat"
+    [headerStyle]="headerStyle"
+    [style]="style"
+  >
+  </kendo-grid-column>
+  <kendo-grid-column
+    field="educationDirection"
+    title="Education direction"
+    [headerStyle]="headerStyle"
+    [style]="style"
+  >
+  </kendo-grid-column>
+  <kendo-grid-column
+    field="educationStartDate"
+    title="Education start date"
+    [format]="dateFormat"
+    [headerStyle]="headerStyle"
+    [style]="style"
+  >
+  </kendo-grid-column>
+  <kendo-grid-column
+    field="educationEndDate"
+    title="Education end date"
+    [format]="dateFormat"
+    [headerStyle]="headerStyle"
+    [style]="style"
+  >
+  </kendo-grid-column>
+</kendo-grid>

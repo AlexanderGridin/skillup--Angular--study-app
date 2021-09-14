@@ -63,5 +63,8 @@
 
   <div class="add-user-form__actions">
     <button kendoButton [primary]="true" type="submit">Add user</button>
+    <button kendoButton type="button" (click)="handleCancel($event)">
+      Cancel
+    </button>
   </div>
 </form>
