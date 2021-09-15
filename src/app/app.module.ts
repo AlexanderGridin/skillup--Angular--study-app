@@ -26,6 +26,8 @@ import { PageTitleComponent } from './components/page-title/page-title.component
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { ContainerComponent } from './components/container/container.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
+import { LabelModule } from '@progress/kendo-angular-label';
+
 
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { UsersTableComponent } from './components/users-table/users-table.compon
     InputsModule,
     DialogsModule,
     StoreModule.forRoot({ users: usersReducer }),
+    LabelModule,
   ],
   providers: [
     GendersService,
