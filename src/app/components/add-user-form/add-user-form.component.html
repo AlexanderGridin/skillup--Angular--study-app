@@ -49,14 +49,22 @@
         <kendo-dropdownlist
           class="add-user-form__control"
           formControlName="gender"
-          [data]="genderFormOptionsWithoutDefault"
+          [data]="genderFormOptions"
           [defaultItem]="defaultGenderFormOption"
           textField="text"
           valueField="value"
           [valuePrimitive]="true"
+          isRequired="true"
+          (valueChange)="handleDropdownChanges()"
         >
         </kendo-dropdownlist>
       </kendo-label>
+      <kendo-formerror
+        *ngIf="
+          form.controls.gender.touched && form.controls.gender.errors?.required
+        "
+        >Ther gender is required.</kendo-formerror
+      >
     </kendo-formfield>
   </div>
 
@@ -77,14 +85,21 @@
         <kendo-dropdownlist
           class="add-user-form__control"
           formControlName="educationDirection"
-          [data]="directionOfStudyFormOptionsWithoutDefault"
-          [defaultItem]="defaultDirectionOfStudyFormOption"
+          [data]="educationDirectionFormOptions"
+          [defaultItem]="defaultEducationDirectionFormOption"
           textField="text"
           valueField="value"
           [valuePrimitive]="true"
         >
         </kendo-dropdownlist>
       </kendo-label>
+      <kendo-formerror
+        *ngIf="
+          form.controls.educationDirection.touched &&
+          form.controls.educationDirection.errors?.required
+        "
+        >Ther gender is required.</kendo-formerror
+      >
     </kendo-formfield>
   </div>
 
