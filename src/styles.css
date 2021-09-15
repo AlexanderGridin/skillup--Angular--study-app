@@ -2,7 +2,7 @@
 :root,
 body {
   overflow-x: hidden;
-  position: relative;
+  /* position: relative; */
 }
 
 :root {
