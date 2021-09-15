@@ -4,17 +4,7 @@
   class="add-user-form"
   (ngSubmit)="handleSubmit()"
 >
-  <!-- <div class="add-user-form__item">
-    <kendo-textbox
-      class="add-user-form__control"
-      formControlName="userName"
-      placeholder="Enter Name"
-      showSuccessIcon="initial"
-      showErrorIcon="initial"
-    ></kendo-textbox>
-  </div> -->
-
-  <div class="add-user-form__item">
+  <div class="add-user-form__user-name add-user-form__item">
     <kendo-formfield>
       <kendo-label text="User name">
         <kendo-textbox
@@ -23,7 +13,6 @@
           placeholder="Enter Name"
           showSuccessIcon="initial"
           showErrorIcon="initial"
-          (valueChange)="onUserNameChange($event)"
         ></kendo-textbox>
       </kendo-label>
 
@@ -53,53 +42,72 @@
       >
     </kendo-formfield>
   </div>
-  <div class="add-user-form__item">
-    <!-- <kendo-label text="Gender"> </kendo-label> -->
-    <kendo-dropdownlist
-      class="add-user-form__control"
-      formControlName="gender"
-      [data]="genderFormOptionsWithoutDefault"
-      [defaultItem]="defaultGenderFormOption"
-      textField="text"
-      valueField="value"
-      [valuePrimitive]="true"
-    >
-    </kendo-dropdownlist>
-    <!-- <kendo-formfield> </kendo-formfield> -->
+
+  <div class="add-user-form__gender add-user-form__item">
+    <kendo-formfield>
+      <kendo-label text="Gender">
+        <kendo-dropdownlist
+          class="add-user-form__control"
+          formControlName="gender"
+          [data]="genderFormOptionsWithoutDefault"
+          [defaultItem]="defaultGenderFormOption"
+          textField="text"
+          valueField="value"
+          [valuePrimitive]="true"
+        >
+        </kendo-dropdownlist>
+      </kendo-label>
+    </kendo-formfield>
   </div>
 
-  <div class="add-user-form__item">
-    <kendo-datepicker
-      class="add-user-form__control"
-      formControlName="dateOfBirth"
-    ></kendo-datepicker>
+  <div class="add-user-form__date-of-birth add-user-form__item">
+    <kendo-formfield>
+      <kendo-label text="Date of birth">
+        <kendo-datepicker
+          class="add-user-form__control"
+          formControlName="dateOfBirth"
+        ></kendo-datepicker>
+      </kendo-label>
+    </kendo-formfield>
   </div>
 
-  <div class="add-user-form__item">
-    <kendo-dropdownlist
-      class="add-user-form__control"
-      formControlName="educationDirection"
-      [data]="directionOfStudyFormOptionsWithoutDefault"
-      [defaultItem]="defaultDirectionOfStudyFormOption"
-      textField="text"
-      valueField="value"
-      [valuePrimitive]="true"
-    >
-    </kendo-dropdownlist>
+  <div class="add-user-form__educational-direction add-user-form__item">
+    <kendo-formfield>
+      <kendo-label text="Educational direction">
+        <kendo-dropdownlist
+          class="add-user-form__control"
+          formControlName="educationDirection"
+          [data]="directionOfStudyFormOptionsWithoutDefault"
+          [defaultItem]="defaultDirectionOfStudyFormOption"
+          textField="text"
+          valueField="value"
+          [valuePrimitive]="true"
+        >
+        </kendo-dropdownlist>
+      </kendo-label>
+    </kendo-formfield>
   </div>
 
-  <div class="add-user-form__item">
-    <kendo-datepicker
-      class="add-user-form__control"
-      formControlName="educationStartDate"
-    ></kendo-datepicker>
+  <div class="add-user-form__education-start-date add-user-form__item">
+    <kendo-formfield>
+      <kendo-label text="Education start date">
+        <kendo-datepicker
+          class="add-user-form__control"
+          formControlName="educationStartDate"
+        ></kendo-datepicker>
+      </kendo-label>
+    </kendo-formfield>
   </div>
 
-  <div class="add-user-form__item">
-    <kendo-datepicker
-      class="add-user-form__control"
-      formControlName="educationEndDate"
-    ></kendo-datepicker>
+  <div class="add-user-form__education-end-date add-user-form__item">
+    <kendo-formfield>
+      <kendo-label text="Education end date">
+        <kendo-datepicker
+          class="add-user-form__control"
+          formControlName="educationEndDate"
+        ></kendo-datepicker>
+      </kendo-label>
+    </kendo-formfield>
   </div>
 
   <div class="add-user-form__actions">

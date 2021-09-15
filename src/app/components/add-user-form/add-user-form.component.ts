@@ -53,9 +53,6 @@ export class AddUserFormComponent implements OnInit {
   public ngOnInit(): void {
     this.getAllUsers();
     this.initForm();
-    console.log(this.genderFormOptions);
-    console.log(this.defaultGenderFormOption);
-    console.log(this.genderFormOptionsWithoutDefault);
   }
 
   private initForm(): void {
@@ -79,11 +76,6 @@ export class AddUserFormComponent implements OnInit {
     });
   }
 
-  public onUserNameChange(event: string): void {
-    console.log(event);
-    console.log(this.form.controls.userName);
-  }
-
   private getAllUsers(): void {
     this.store$.select(UsersSelectors.getAllUsers).subscribe({
       next: (usersFromStore: User[]): void => {
@@ -92,7 +84,6 @@ export class AddUserFormComponent implements OnInit {
     });
   }
 
-  // TODO: fix return type
   public handleSubmit(): null {
     if (this.form.invalid) {
       this.handleFormInvalidStatus();
