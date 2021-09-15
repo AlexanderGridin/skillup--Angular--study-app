@@ -1,21 +1,18 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormArray,
-  AbstractControl,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { GendersService } from '../../services/genders/genders.service';
 import { DirectionsOfStudyService } from '../../services/directions-of-study/directions-of-study.service';
 
 import { FormOptionDataObject } from '../../interfaces/form-option-data-object';
 
-import { ValidateInputLength } from '../../validators/input-length-validator';
 import { User } from 'src/app/interfaces/user';
 import { AddUserFormDataObject } from 'src/app/interfaces/add-user-form-data-object';
 import { UsersService } from 'src/app/services/users/users.service';
+import { Store } from '@ngrx/store';
+import { UsersSelectors } from 'src/app/store/users/users.selectors';
+
+import { UniqueField } from 'src/app/validators/UniqueField';
 
 @Component({
   selector: 'add-user-form',
@@ -30,37 +27,44 @@ export class AddUserFormComponent implements OnInit {
   public defaultGenderFormOption: FormOptionDataObject =
     this.genderFormOptions[0];
   public genderFormOptionsWithoutDefault: FormOptionDataObject[] =
-    this.genderFormOptions.splice(1);
+    this.genderFormOptions.slice(1);
 
   public directionsOfStudyFormOptions: FormOptionDataObject[] =
     this.directionsOfStudySerivce.createFormOptions();
   public defaultDirectionOfStudyFormOption: FormOptionDataObject =
     this.directionsOfStudyFormOptions[0];
   public directionOfStudyFormOptionsWithoutDefault: FormOptionDataObject[] =
-    this.directionsOfStudyFormOptions.splice(1);
+    this.directionsOfStudyFormOptions.slice(1);
 
   public currentDate: Date = new Date();
+
+  public allUsers!: User[];
 
   @Output() onSubmit: EventEmitter<User> = new EventEmitter<User>();
   @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
 
   constructor(
+    private store$: Store,
     private gendersService: GendersService,
     private directionsOfStudySerivce: DirectionsOfStudyService,
     private usersService: UsersService
   ) {}
 
   public ngOnInit(): void {
+    this.getAllUsers();
     this.initForm();
+    console.log(this.genderFormOptions);
+    console.log(this.defaultGenderFormOption);
+    console.log(this.genderFormOptionsWithoutDefault);
   }
 
   private initForm(): void {
     this.form = new FormGroup({
       userName: new FormControl('', [
         Validators.required,
-        // Validators.minLength(5),
-        // Validators.maxLength(15),
-        ValidateInputLength,
+        Validators.minLength(5),
+        Validators.maxLength(15),
+        UniqueField<User>(this.allUsers, 'userName'),
       ]),
       gender: new FormControl(this.defaultGenderFormOption.value),
       dateOfBirth: new FormControl(this.currentDate, [Validators.required]),
@@ -72,6 +76,19 @@ export class AddUserFormComponent implements OnInit {
         Validators.required,
       ]),
       educationEndDate: new FormControl(this.currentDate),
+    });
+  }
+
+  public onUserNameChange(event: string): void {
+    console.log(event);
+    console.log(this.form.controls.userName);
+  }
+
+  private getAllUsers(): void {
+    this.store$.select(UsersSelectors.getAllUsers).subscribe({
+      next: (usersFromStore: User[]): void => {
+        this.allUsers = usersFromStore;
+      },
     });
   }
 

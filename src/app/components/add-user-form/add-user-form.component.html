@@ -4,7 +4,7 @@
   class="add-user-form"
   (ngSubmit)="handleSubmit()"
 >
-  <div class="add-user-form__item">
+  <!-- <div class="add-user-form__item">
     <kendo-textbox
       class="add-user-form__control"
       formControlName="userName"
@@ -12,9 +12,49 @@
       showSuccessIcon="initial"
       showErrorIcon="initial"
     ></kendo-textbox>
-  </div>
+  </div> -->
 
   <div class="add-user-form__item">
+    <kendo-formfield>
+      <kendo-label text="User name">
+        <kendo-textbox
+          class="add-user-form__control"
+          formControlName="userName"
+          placeholder="Enter Name"
+          showSuccessIcon="initial"
+          showErrorIcon="initial"
+          (valueChange)="onUserNameChange($event)"
+        ></kendo-textbox>
+      </kendo-label>
+
+      <kendo-formhint *ngIf="form.controls.userName.value.length === 0"
+        >Please, enter user name. User name must be unique.</kendo-formhint
+      >
+      <kendo-formerror *ngIf="form.controls.userName.errors?.minlength"
+        >The user name must contain a minimum of
+        {{ form.controls.userName.errors?.minlength?.requiredLength }}
+        symbols.</kendo-formerror
+      >
+      <kendo-formerror *ngIf="form.controls.userName.errors?.maxlength"
+        >The user name must contain a maximum of
+        {{ form.controls.userName.errors?.maxlength?.requiredLength }}
+        symbols.</kendo-formerror
+      >
+      <kendo-formerror
+        *ngIf="form.controls.userName.errors?.invalidUserNameUniqueness"
+        >The user name must be unique.</kendo-formerror
+      >
+      <kendo-formerror
+        *ngIf="
+          form.controls.userName.touched &&
+          form.controls.userName.errors?.required
+        "
+        >Ther user name is required.</kendo-formerror
+      >
+    </kendo-formfield>
+  </div>
+  <div class="add-user-form__item">
+    <!-- <kendo-label text="Gender"> </kendo-label> -->
     <kendo-dropdownlist
       class="add-user-form__control"
       formControlName="gender"
@@ -25,6 +65,7 @@
       [valuePrimitive]="true"
     >
     </kendo-dropdownlist>
+    <!-- <kendo-formfield> </kendo-formfield> -->
   </div>
 
   <div class="add-user-form__item">
