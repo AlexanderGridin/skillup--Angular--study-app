@@ -28,7 +28,6 @@ import { ContainerComponent } from './components/container/container.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { LabelModule } from '@progress/kendo-angular-label';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,11 +46,11 @@ import { LabelModule } from '@progress/kendo-angular-label';
     DropDownsModule,
     GridModule,
     DateInputsModule,
+    LabelModule,
     ButtonsModule,
     InputsModule,
     DialogsModule,
     StoreModule.forRoot({ users: usersReducer }),
-    LabelModule,
   ],
   providers: [
     GendersService,
