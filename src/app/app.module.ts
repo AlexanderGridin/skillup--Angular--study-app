@@ -12,8 +12,6 @@ import { AddUserFormComponent } from './components/add-user-form/add-user-form.c
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 
-import { GendersService } from './services/genders/genders.service';
-import { DirectionsOfStudyService } from './services/directions-of-study/directions-of-study.service';
 import { UsersStateService } from './services/users-state/users-state.service';
 import { UsersService } from './services/users/users.service';
 
@@ -52,12 +50,7 @@ import { LabelModule } from '@progress/kendo-angular-label';
     DialogsModule,
     StoreModule.forRoot({ users: usersReducer }),
   ],
-  providers: [
-    GendersService,
-    DirectionsOfStudyService,
-    UsersStateService,
-    UsersService,
-  ],
+  providers: [UsersStateService, UsersService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,10 +1,12 @@
-import { Gender } from '../interfaces/gender';
+import { FormOptionDataObject } from '../interfaces/form-option-data-object';
 
-export const GENDERS: Gender[] = [
+export const GENDERS: FormOptionDataObject[] = [
   {
-    title: 'Male',
+    text: 'Male',
+    value: 'male',
   },
   {
-    title: 'Female',
+    text: 'Female',
+    value: 'female',
   },
 ];

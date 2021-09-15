@@ -1,25 +1,28 @@
-import { DirectionOfStudy } from '../interfaces/direction-of-study';
+import { FormOptionDataObject } from '../interfaces/form-option-data-object';
 
-export const DIRECTIONS_OF_STUDY: DirectionOfStudy[] = [
+export const DIRECTIONS_OF_STUDY: FormOptionDataObject[] = [
   {
-    title: 'Backend',
+    text: 'Backend',
+    value: 'backend',
   },
   {
-    title: 'Frontend',
+    text: 'Frontend',
+    value: 'frontend',
   },
   {
-    title: 'Design',
+    text: 'Design',
+    value: 'design',
   },
   {
-    title: 'Project',
+    text: 'Project Management',
+    value: 'project management',
   },
   {
-    title: 'Management',
+    text: 'Quality Assurance',
+    value: 'quality assurance',
   },
   {
-    title: 'Quality Assurance',
-  },
-  {
-    title: 'Business Analytic',
+    text: 'Business Analytic',
+    value: 'business analytic',
   },
 ];
