@@ -12,7 +12,7 @@ import { DirectionsOfStudyService } from '../../services/directions-of-study/dir
 
 import { FormOptionDataObject } from '../../interfaces/form-option-data-object';
 
-import { ValidateInputLength } from '../../custom-form-validators/input-length-validator';
+import { ValidateInputLength } from '../../validators/input-length-validator';
 import { User } from 'src/app/interfaces/user';
 import { AddUserFormDataObject } from 'src/app/interfaces/add-user-form-data-object';
 import { UsersService } from 'src/app/services/users/users.service';
