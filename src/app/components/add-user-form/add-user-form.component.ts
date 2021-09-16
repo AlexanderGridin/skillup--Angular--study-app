@@ -16,8 +16,8 @@ import { Store } from '@ngrx/store';
 import { UsersSelectors } from 'src/app/store/users/users.selectors';
 
 import { UniqueAmong } from 'src/app/validators/UniqueAmong';
-import { DateEarlierThan } from 'src/app/validators/EarlierThanOrEquals';
-import { DateLaterThan } from 'src/app/validators/LaterThanOrEquals';
+import { DateEarlierThan } from 'src/app/validators/DateEarlierThan';
+import { DateLaterThan } from 'src/app/validators/DateLaterThan';
 import { DateEquals } from 'src/app/validators/DateEquals';
 
 import { GENDERS } from 'src/app/constants/genders';
