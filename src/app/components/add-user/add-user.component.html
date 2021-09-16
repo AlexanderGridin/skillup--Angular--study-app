@@ -3,11 +3,11 @@
 </div>
 
 <kendo-dialog
-  title="Add user"
+  title="modalTitle"
   *ngIf="isModalVisible"
   (close)="closeModal()"
-  [minWidth]="250"
-  [width]="450"
+  [minWidth]="modalMinWidth"
+  [width]="modalWidth"
 >
   <add-user-form
     (onSubmit)="handleFormSubmit($event)"

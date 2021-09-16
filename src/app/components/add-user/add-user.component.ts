@@ -9,6 +9,9 @@ import { UsersStateService } from 'src/app/services/users-state/users-state.serv
 })
 export class AddUserComponent implements OnInit {
   public isModalVisible: boolean = false;
+  public modalTitle: string = 'Add user';
+  public modalMinWidth: number = 250;
+  public modalWidth: number = 450;
 
   constructor(private usersStateService: UsersStateService) {}
 
@@ -20,11 +23,11 @@ export class AddUserComponent implements OnInit {
   }
 
   // We can't use method like toogleModalVisibility(), beacause (close) action of kendo-dialog component calls his method twice
-  public showModal(): void {
-    this.isModalVisible = true;
-  }
-
   public closeModal(): void {
     this.isModalVisible = false;
+  }
+
+  public showModal(): void {
+    this.isModalVisible = true;
   }
 }
