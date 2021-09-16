@@ -97,19 +97,19 @@ export class AddUserFormComponent implements OnInit {
     ]);
   }
 
-  public handleSubmit(): null {
-    console.log(this.form.controls.dateOfBirth.value);
-
+  public handleSubmit(): void {
     if (this.form.invalid) {
       this.handleFormInvalidStatus();
-      return null;
+    } else {
+      this.handleFormValidStatus();
     }
-
-    this.handleFormValidStatus();
-    return null;
   }
 
   private handleFormInvalidStatus(): void {
+    this.markAllInvalidControlsAsTouched();
+  }
+
+  private markAllInvalidControlsAsTouched(): void {
     for (let controlName in this.form.controls) {
       this.form.controls[controlName].invalid &&
         this.form.controls[controlName].markAsTouched();
