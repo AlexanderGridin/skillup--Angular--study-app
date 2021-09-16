@@ -15,7 +15,7 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { UsersService } from './services/users/users.service';
-import { UsersStateService } from './services/users-state/users-state.service';
+import { UsersStoreService } from './services/users-store/users-store.service';
 
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 
@@ -53,7 +53,7 @@ import { UsersTableComponent } from './components/users-table/users-table.compon
 
     StoreModule.forRoot({ users: usersReducer }),
   ],
-  providers: [UsersStateService, UsersService],
+  providers: [UsersService, UsersStoreService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

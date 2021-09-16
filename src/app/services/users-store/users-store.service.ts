@@ -8,7 +8,7 @@ import { UsersSelectors } from 'src/app/store/users/users.selectors';
 import { User } from 'src/app/interfaces/user';
 
 @Injectable()
-export class UsersStateService {
+export class UsersStoreService {
   constructor(private store$: Store) {}
 
   public addUser(user: User): void {

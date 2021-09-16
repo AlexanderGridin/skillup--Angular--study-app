@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
-import { UsersStateService } from 'src/app/services/users-state/users-state.service';
+import { UsersStoreService } from 'src/app/services/users-store/users-store.service';
 
 @Component({
   selector: 'add-user',
@@ -13,10 +13,10 @@ export class AddUserComponent {
   public modalMinWidth: number = 250;
   public modalWidth: number = 450;
 
-  constructor(private usersStateService: UsersStateService) {}
+  constructor(private usersStoreService: UsersStoreService) {}
 
   public handleFormSubmit(newUser: User): void {
-    this.usersStateService.addUser(newUser);
+    this.usersStoreService.addUser(newUser);
     this.closeModal();
   }
 

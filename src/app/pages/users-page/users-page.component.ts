@@ -1,26 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
-import { UsersStateService } from 'src/app/services/users-state/users-state.service';
+import { UsersStoreService } from 'src/app/services/users-store/users-store.service';
 
 @Component({
   selector: 'users-page',
   templateUrl: './users-page.component.html',
   styleUrls: ['./users-page.component.css'],
 })
-export class UsersPageComponent implements OnInit {
+export class UsersPageComponent implements OnInit, OnDestroy {
   public users!: User[];
+  private usersSub!: Subscription;
 
-  constructor(private usersStateService: UsersStateService) {}
+  constructor(private usersStoreService: UsersStoreService) {}
 
   public ngOnInit(): void {
     this.getAllUsers();
   }
 
-  public getAllUsers(): void {
-    this.usersStateService.getAllUsers().subscribe({
+  private getAllUsers(): void {
+    this.usersSub = this.usersStoreService.getAllUsers().subscribe({
       next: (usersFromState: User[]): void => {
         this.users = usersFromState;
       },
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.usersSub.unsubscribe();
   }
 }
