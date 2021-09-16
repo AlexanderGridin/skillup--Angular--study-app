@@ -1,7 +1,7 @@
 <form class="user-form" [formGroup]="form" (ngSubmit)="handleSubmit()">
   <kendo-formfield class="user-form__user-name user-form__item">
     <kendo-label class="user-form__label" [for]="userName" text="User name">
-      <span class="user-form__required"> *</span>
+      <span class="user-form__required">&nbsp;*</span>
     </kendo-label>
 
     <kendo-textbox
@@ -16,15 +16,12 @@
     <kendo-formhint
       class="user-form__hint"
       *ngIf="form.controls.userName.value.length === 0"
-      >Please, enter user name. User name must be unique.</kendo-formhint
+      >Please, enter a user name. User name must be unique.</kendo-formhint
     >
 
     <kendo-formerror
       class="user-form__item-error user-form__item-error--required"
-      *ngIf="
-        form.controls.userName.touched &&
-        form.controls.userName.errors?.required
-      "
+      *ngIf="form.controls.userName.errors?.required"
       >The user name is required.</kendo-formerror
     >
     <kendo-formerror
@@ -35,24 +32,26 @@
     <kendo-formerror
       class="user-form__item-error user-form__item-error--min-length"
       *ngIf="form.controls.userName.errors?.minlength"
-      >The user name must contain a minimum of
-      {{ form.controls.userName.errors?.minlength?.requiredLength }}
-      symbols.</kendo-formerror
+      >The user name must contain a minimum of &nbsp;
+      <strong>
+        {{ form.controls.userName.errors?.minlength?.requiredLength }}
+      </strong>
+      &nbsp; symbols.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--max-length"
       *ngIf="form.controls.userName.errors?.maxlength"
-      >The user name must contain a maximum of
-      <strong>{{
-        form.controls.userName.errors?.maxlength?.requiredLength
-      }}</strong>
-      symbols.</kendo-formerror
+      >The user name must contain a maximum of &nbsp;
+      <strong>
+        {{ form.controls.userName.errors?.maxlength?.requiredLength }}
+      </strong>
+      &nbsp; symbols.</kendo-formerror
     >
   </kendo-formfield>
 
   <kendo-formfield class="user-form__gender user-form__item">
     <kendo-label class="user-form__label" [for]="gender" text="Gender">
-      <span class="user-form__required"> *</span>
+      <span class="user-form__required">&nbsp;*</span>
     </kendo-label>
 
     <kendo-dropdownlist
@@ -69,9 +68,7 @@
 
     <kendo-formerror
       class="user-form__item-error user-form__item-error--required"
-      *ngIf="
-        form.controls.gender.touched && form.controls.gender.errors?.required
-      "
+      *ngIf="form.controls.gender.errors?.required"
       >The gender is required.</kendo-formerror
     >
   </kendo-formfield>
@@ -82,7 +79,7 @@
       [for]="dateOfBirth"
       text="Date of birth"
     >
-      <span class="user-form__required"> *</span>
+      <span class="user-form__required">&nbsp;*</span>
     </kendo-label>
 
     <kendo-datepicker
@@ -95,33 +92,31 @@
     <kendo-formerror
       class="user-form__item-error user-form__item-error--required"
       *ngIf="form.controls.dateOfBirth.errors?.required"
-      >The date of birth is required</kendo-formerror
+      >The date of birth is required.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-equals"
       *ngIf="form.controls.dateOfBirth.errors?.isDateEqualsEducationStartDate"
-      >The date of birth cannot be equals the start date of
-      training</kendo-formerror
+      >The date of birth cannot equal the education start date.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-equals"
       *ngIf="form.controls.dateOfBirth.errors?.isDateEqualsEducationEndDate"
-      >The date of birth cannot be equals the end date of
-      training</kendo-formerror
+      >The date of birth cannot equal the education end date.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-later-than"
       *ngIf="form.controls.dateOfBirth.errors?.isDateLaterThanEducationEndDate"
-      >The date of birth cannot be later than the end date of
-      training</kendo-formerror
+      >The date of birth cannot be later than the education end
+      date.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-later-than"
       *ngIf="
         form.controls.dateOfBirth.errors?.isDateLaterThanEducationStartDate
       "
-      >The date of birth cannot be later than the start date of
-      training</kendo-formerror
+      >The date of birth cannot be later than the education start
+      date.</kendo-formerror
     >
   </kendo-formfield>
 
@@ -131,7 +126,7 @@
       [for]="educationDirection"
       text="Educational direction"
     >
-      <span class="user-form__required"> *</span>
+      <span class="user-form__required">&nbsp;*</span>
     </kendo-label>
 
     <kendo-dropdownlist
@@ -149,10 +144,7 @@
 
     <kendo-formerror
       class="user-form__item-error user-form__item-error--required"
-      *ngIf="
-        form.controls.educationDirection.touched &&
-        form.controls.educationDirection.errors?.required
-      "
+      *ngIf="form.controls.educationDirection.errors?.required"
       >The education direction is required.</kendo-formerror
     >
   </kendo-formfield>
@@ -163,7 +155,7 @@
       [for]="educationStartDate"
       text="Education start date"
     >
-      <span class="user-form__required"> *</span>
+      <span class="user-form__required">&nbsp;*</span>
     </kendo-label>
 
     <kendo-datepicker
@@ -176,21 +168,20 @@
     <kendo-formerror
       class="user-form__item-error user-form__item-error--required"
       *ngIf="form.controls.educationStartDate.errors?.required"
-      >The education start date is required</kendo-formerror
+      >The education start date is required.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-equals"
       *ngIf="
         form.controls.educationStartDate.errors?.isDateEqualsEducationEndDate
       "
-      >The education start date cannot be equals the end date of
-      training</kendo-formerror
+      >The education start date cannot equal the education end
+      date.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-equals"
       *ngIf="form.controls.educationStartDate.errors?.isDateEqualsDateOfBirth"
-      >The education start date cannot be equals the date of
-      birth</kendo-formerror
+      >The education start date cannot equal the date of birth.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-earlier-than"
@@ -198,7 +189,7 @@
         form.controls.educationStartDate.errors?.isDateEarlierThanDateOfBirth
       "
       >The education start date cannot be earlier than the date of
-      birth</kendo-formerror
+      birth.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-later-than"
@@ -206,7 +197,7 @@
         form.controls.educationStartDate.errors?.isDateLaterThanEducationEndDate
       "
       >The education start date cannot be later than the education end
-      date</kendo-formerror
+      date.</kendo-formerror
     >
   </kendo-formfield>
 
@@ -216,7 +207,7 @@
       [for]="educationEndDate"
       text="Education end date"
     >
-      <span class="user-form__required"> *</span>
+      <span class="user-form__required">&nbsp;*</span>
     </kendo-label>
 
     <kendo-datepicker
@@ -229,21 +220,20 @@
     <kendo-formerror
       class="user-form__item-error user-form__item-error--required"
       *ngIf="form.controls.educationEndDate.errors?.required"
-      >The education end date is required</kendo-formerror
+      >The education end date is required.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-equals"
       *ngIf="form.controls.educationEndDate.errors?.isDateEqualsDateOfBirth"
-      >The education end date cannot be equals the date of
-      birth</kendo-formerror
+      >The education end date cannot equal the date of birth.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-equals"
       *ngIf="
         form.controls.educationEndDate.errors?.isDateEqualsEducationStartDate
       "
-      >The education end date cannot be equals the education start
-      date</kendo-formerror
+      >The education end date cannot equal the education start
+      date.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-earlier-than"
@@ -251,7 +241,7 @@
         form.controls.educationEndDate.errors?.isDateEarlierThanDateOfBirth
       "
       >The education end date cannot be earlier than the date of
-      birth</kendo-formerror
+      birth.</kendo-formerror
     >
     <kendo-formerror
       class="user-form__item-error user-form__item-error--date-earlier-than"
@@ -260,7 +250,7 @@
           ?.isDateEarlierThanEducationStartDate
       "
       >The education end date cannot be earlier than the education start
-      date</kendo-formerror
+      date.</kendo-formerror
     >
   </kendo-formfield>
 

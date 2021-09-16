@@ -23,8 +23,8 @@ import { UniqueAmong } from 'src/app/validators/unique-among';
 import { DateLaterThan } from 'src/app/validators/date-later-than';
 import { DateEarlierThan } from 'src/app/validators/date-earlier-than';
 
-import { GENDERS_FORM_OPTIONS } from 'src/app/constants/genders-form-options';
-import { DIRECTIONS_OF_STUDY_FORM_OPTIONS } from 'src/app/constants/directions-of-study-form-options';
+import { GENDER_FORM_OPTIONS } from 'src/app/constants/gender-form-options';
+import { EDUCATION_DIRECTION_FORM_OPTIONS } from 'src/app/constants/education-direction-form-options';
 
 import { getInitialCurrentDate } from 'src/app/utils/get-initial-current-date';
 
@@ -51,12 +51,18 @@ export class UserFormComponent implements OnInit, OnDestroy {
   @Input() cancelButtonText: string = 'Cancel';
 
   private users!: User[];
-  private getUsersSub!: Subscription;
+  private getAllUsersSub!: Subscription;
 
   public form!: FormGroup;
-  public genderFormOptions: FormOption[] = GENDERS_FORM_OPTIONS;
+  public genderFormOptions: FormOption[] = GENDER_FORM_OPTIONS;
   public educationDirectionFormOptions: FormOption[] =
-    DIRECTIONS_OF_STUDY_FORM_OPTIONS;
+    EDUCATION_DIRECTION_FORM_OPTIONS;
+
+  private readonly DATE_OF_BIRTH_FORM_CONTROL_TITLE: string = 'DateOfBirth';
+  private readonly EDUCATION_START_DATE_FORM_CONTROL_TITLE: string =
+    'EducationStartDate';
+  private readonly EDUCATION_END_DATE_FORM_CONTROL_TITLE: string =
+    'EducationEndDate';
 
   @Output() onSubmit: EventEmitter<User> = new EventEmitter<User>();
   @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
@@ -70,7 +76,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   private getAllUsers(): void {
-    this.getUsersSub = this.store$
+    this.getAllUsersSub = this.store$
       .select(UsersSelectors.getAllUsers)
       .subscribe({
         next: (usersFromStore: User[]): void => {
@@ -114,34 +120,64 @@ export class UserFormComponent implements OnInit, OnDestroy {
       Validators.required,
       DateLaterThan(
         this.form.controls.educationStartDate,
-        'EducationStartDate'
+        this.EDUCATION_START_DATE_FORM_CONTROL_TITLE
       ),
-      DateLaterThan(this.form.controls.educationEndDate, 'EducationEndDate'),
-      DateEquals(this.form.controls.educationStartDate, 'EducationStartDate'),
-      DateEquals(this.form.controls.educationEndDate, 'EducationEndDate'),
+      DateLaterThan(
+        this.form.controls.educationEndDate,
+        this.EDUCATION_END_DATE_FORM_CONTROL_TITLE
+      ),
+      DateEquals(
+        this.form.controls.educationStartDate,
+        this.EDUCATION_START_DATE_FORM_CONTROL_TITLE
+      ),
+      DateEquals(
+        this.form.controls.educationEndDate,
+        this.EDUCATION_END_DATE_FORM_CONTROL_TITLE
+      ),
     ]);
   }
 
   private setEducationStartDateFormControlValidators(): void {
     this.form.controls.educationStartDate.setValidators([
       Validators.required,
-      DateEarlierThan(this.form.controls.dateOfBirth, 'DateOfBirth'),
-      DateLaterThan(this.form.controls.educationEndDate, 'EducationEndDate'),
-      DateEquals(this.form.controls.dateOfBirth, 'DateOfBirth'),
-      DateEquals(this.form.controls.educationEndDate, 'EducationEndDate'),
+      DateEarlierThan(
+        this.form.controls.dateOfBirth,
+        this.DATE_OF_BIRTH_FORM_CONTROL_TITLE
+      ),
+      DateLaterThan(
+        this.form.controls.educationEndDate,
+        this.EDUCATION_END_DATE_FORM_CONTROL_TITLE
+      ),
+      DateEquals(
+        this.form.controls.dateOfBirth,
+        this.DATE_OF_BIRTH_FORM_CONTROL_TITLE
+      ),
+      DateEquals(
+        this.form.controls.educationEndDate,
+        this.EDUCATION_END_DATE_FORM_CONTROL_TITLE
+      ),
     ]);
   }
 
   private setEducationEndDateFormControlValidatiors(): void {
     this.form.controls.educationEndDate.setValidators([
       Validators.required,
-      DateEarlierThan(this.form.controls.dateOfBirth, 'DateOfBirth'),
+      DateEarlierThan(
+        this.form.controls.dateOfBirth,
+        this.DATE_OF_BIRTH_FORM_CONTROL_TITLE
+      ),
       DateEarlierThan(
         this.form.controls.educationStartDate,
-        'EducationStartDate'
+        this.EDUCATION_START_DATE_FORM_CONTROL_TITLE
       ),
-      DateEquals(this.form.controls.dateOfBirth, 'DateOfBirth'),
-      DateEquals(this.form.controls.educationStartDate, 'EducationStartDate'),
+      DateEquals(
+        this.form.controls.dateOfBirth,
+        this.DATE_OF_BIRTH_FORM_CONTROL_TITLE
+      ),
+      DateEquals(
+        this.form.controls.educationStartDate,
+        this.EDUCATION_START_DATE_FORM_CONTROL_TITLE
+      ),
     ]);
   }
 
@@ -155,13 +191,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   private setEducationEndDateValidatorsDependingOnEducationDirectionValue(): null {
-    this.form.controls.educationEndDate.updateValueAndValidity();
-
-    if (this.form.controls.educationDirection.value === '') {
-      return null;
-    }
-
     if (
+      this.form.controls.educationDirection.value === '' ||
       this.form.controls.educationDirection.value === 'backend' ||
       this.form.controls.educationDirection.value === 'frontend'
     ) {
@@ -221,6 +252,6 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.getUsersSub.unsubscribe();
+    this.getAllUsersSub.unsubscribe();
   }
 }

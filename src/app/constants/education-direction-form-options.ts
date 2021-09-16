@@ -1,6 +1,6 @@
 import { FormOption } from '../interfaces/form-option';
 
-export const DIRECTIONS_OF_STUDY_FORM_OPTIONS: FormOption[] = [
+export const EDUCATION_DIRECTION_FORM_OPTIONS: FormOption[] = [
   {
     text: 'Backend',
     value: 'backend',

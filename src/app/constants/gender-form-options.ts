@@ -1,6 +1,6 @@
 import { FormOption } from '../interfaces/form-option';
 
-export const GENDERS_FORM_OPTIONS: FormOption[] = [
+export const GENDER_FORM_OPTIONS: FormOption[] = [
   {
     text: 'Male',
     value: 'male',
