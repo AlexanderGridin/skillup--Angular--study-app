@@ -1,5 +1,5 @@
 import { User } from './user';
 
-export interface UsersState {
+export interface UsersStore {
   users: User[];
 }

@@ -1,13 +1,13 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 
-import { UsersState } from 'src/app/interfaces/users-state';
+import { UsersStore } from 'src/app/interfaces/users-store';
 import { User } from 'src/app/interfaces/user';
 
 export namespace UsersSelectors {
-  export const state = createFeatureSelector<UsersState>('users');
+  export const store = createFeatureSelector<UsersStore>('users');
 
   export const getAllUsers = createSelector(
-    state,
-    (state: UsersState): User[] => state.users
+    store,
+    (store: UsersStore): User[] => store.users
   );
 }

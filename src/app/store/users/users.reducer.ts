@@ -1,28 +1,28 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { UsersActions } from './users.actions';
 
-import { UsersState } from 'src/app/interfaces/users-state';
+import { UsersStore } from 'src/app/interfaces/users-store';
 import { User } from 'src/app/interfaces/user';
 
-const initialState: UsersState = {
+const initialStore: UsersStore = {
   users: [],
 };
 
 const _usersReducer = createReducer(
-  initialState,
+  initialStore,
   on(
     UsersActions.addUser,
-    (state: UsersState, { user }: { user: User }): UsersState => {
-      const stateUsers: User[] = [...state.users];
-      const updatedUsers: User[] = [...stateUsers, user];
+    (store: UsersStore, { user }: { user: User }): UsersStore => {
+      const usersFromStore: User[] = [...store.users];
+      const users: User[] = [...usersFromStore, user];
 
       return {
-        ...state,
-        users: updatedUsers,
+        ...store,
+        users,
       };
     }
   )
 );
 
-export const usersReducer = (state: UsersState | undefined, action: Action) =>
-  _usersReducer(state, action);
+export const usersReducer = (store: UsersStore | undefined, action: Action) =>
+  _usersReducer(store, action);
