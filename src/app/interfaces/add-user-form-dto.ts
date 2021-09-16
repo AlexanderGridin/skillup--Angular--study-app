@@ -1,4 +1,4 @@
-export interface AddUserFormDataObject {
+export interface AddUserFormDTO {
   userName: string;
   gender: string;
   dateOfBirth: Date;

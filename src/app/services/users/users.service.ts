@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
-import { AddUserFormDataObject } from 'src/app/interfaces/add-user-form-data-object';
+import { AddUserFormDTO } from 'src/app/interfaces/add-user-form-dto';
 
 @Injectable()
 export class UsersService {
   public createUserFromAddUserFormDataObject(
-    addUserFormDataObject: AddUserFormDataObject
+    addUserFormDataObject: AddUserFormDTO
   ): User {
     let {
       userName,

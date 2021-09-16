@@ -13,7 +13,7 @@ import { UsersSelectors } from 'src/app/store/users/users.selectors';
 
 import { User } from 'src/app/interfaces/user';
 import { FormOption } from '../../interfaces/form-option';
-import { AddUserFormDataObject } from 'src/app/interfaces/add-user-form-data-object';
+import { AddUserFormDTO } from 'src/app/interfaces/add-user-form-dto';
 
 import { UsersService } from 'src/app/services/users/users.service';
 
@@ -26,6 +26,7 @@ import { GENDERS_FORM_OPTIONS } from 'src/app/constants/genders-form-options';
 import { DIRECTIONS_OF_STUDY_FORM_OPTIONS } from 'src/app/constants/directions-of-study-form-options';
 
 import { createDefaultFormOption } from 'src/app/utils/create-default-form-option';
+import { getInitialCurrentDate } from 'src/app/utils/get-initial-current-date';
 
 @Component({
   selector: 'add-user-form',
@@ -33,7 +34,7 @@ import { createDefaultFormOption } from 'src/app/utils/create-default-form-optio
   styleUrls: ['./add-user-form.component.css'],
 })
 export class AddUserFormComponent implements OnInit, OnDestroy {
-  public defaultDate!: Date;
+  public defaultDate: Date = getInitialCurrentDate();
 
   private users!: User[];
   private getUsersSub!: Subscription;
@@ -56,15 +57,9 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   constructor(private store$: Store, private usersService: UsersService) {}
 
   public ngOnInit(): void {
-    this.initDefaultDate();
     this.getAllUsers();
     this.initForm();
     this.setValidatorsThatRequireFormInitialization();
-  }
-
-  private initDefaultDate(): void {
-    let time: number = new Date().setHours(0, 0, 0, 0);
-    this.defaultDate = new Date(time);
   }
 
   private getAllUsers(): void {
@@ -216,7 +211,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   }
 
   private handleFormValidStatus(): void {
-    let addUserFormDataObject: AddUserFormDataObject = this.form.value;
+    let addUserFormDataObject: AddUserFormDTO = this.form.value;
     let newUser: User = this.usersService.createUserFromAddUserFormDataObject(
       addUserFormDataObject
     );
