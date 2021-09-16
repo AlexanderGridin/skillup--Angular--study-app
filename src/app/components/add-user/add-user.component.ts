@@ -20,7 +20,6 @@ export class AddUserComponent {
     this.closeModal();
   }
 
-  // We can't use method like toogleModalVisibility(), beacause (close) action of kendo-dialog component calls his method twice
   public closeModal(): void {
     this.isModalVisible = false;
   }
