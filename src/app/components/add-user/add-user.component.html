@@ -1,5 +1,12 @@
 <div class="add-user__actions">
-  <button kendoButton (click)="showModal()" [primary]="true">Add user</button>
+  <button
+    class="add-user__button add-user__button--add-user"
+    kendoButton
+    [primary]="true"
+    (click)="showModal()"
+  >
+    Add user
+  </button>
 </div>
 
 <kendo-dialog
