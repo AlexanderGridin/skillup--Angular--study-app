@@ -72,6 +72,7 @@
         <kendo-datepicker
           class="add-user-form__control"
           formControlName="dateOfBirth"
+          (valueChange)="handleValueChangeOfDateOfBirth()"
         ></kendo-datepicker>
       </kendo-label>
 
@@ -116,6 +117,7 @@
           textField="text"
           valueField="value"
           [valuePrimitive]="true"
+          (valueChange)="handleValueChangeOfEducationDirection()"
         >
         </kendo-dropdownlist>
       </kendo-label>
@@ -181,6 +183,37 @@
           (valueChange)="handleValueChangeOfEducationEndDate()"
         ></kendo-datepicker>
       </kendo-label>
+
+      <kendo-formerror *ngIf="form.controls.educationEndDate.errors?.required"
+        >The education end date is required</kendo-formerror
+      >
+      <kendo-formerror
+        *ngIf="
+          form.controls.educationEndDate.errors?.isDateEarlierThanDateOfBirth
+        "
+        >The education end date cannot be earlier than the date of
+        birth</kendo-formerror
+      >
+      <kendo-formerror
+        *ngIf="
+          form.controls.educationEndDate.errors
+            ?.isDateEarlierThanEducationStartDate
+        "
+        >The education end date cannot be earlier than the education start
+        date</kendo-formerror
+      >
+      <kendo-formerror
+        *ngIf="form.controls.educationEndDate.errors?.isDateEqualsDateOfBirth"
+        >The education end date cannot be equals the date of
+        birth</kendo-formerror
+      >
+      <kendo-formerror
+        *ngIf="
+          form.controls.educationEndDate.errors?.isDateEqualsEducationStartDate
+        "
+        >The education end date cannot be equals the education start
+        date</kendo-formerror
+      >
     </kendo-formfield>
   </div>
 

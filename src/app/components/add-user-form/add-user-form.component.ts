@@ -34,7 +34,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   private users!: User[];
   private getUsersSub!: Subscription;
   public form!: FormGroup;
-  public currentDate: Date = new Date();
+  public currentDate!: Date;
 
   public genderFormOptions: FormOptionDataObject[] = GENDERS;
   public defaultGenderFormOption: FormOptionDataObject =
@@ -51,9 +51,19 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   constructor(private store$: Store, private usersService: UsersService) {}
 
   public ngOnInit(): void {
+    this.initCurrentDate();
     this.getAllUsers();
     this.initForm();
     this.setValidatorsThatRequireFormInitialization();
+
+    console.log(this.form.controls.educationStartDate);
+    console.log(this.form.controls.educationEndDate);
+  }
+
+  private initCurrentDate(): void {
+    let time: number = new Date().setHours(0, 0, 0, 0);
+    this.currentDate = new Date(time);
+    console.log(this.currentDate);
   }
 
   private getAllUsers(): void {
@@ -90,6 +100,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   private setValidatorsThatRequireFormInitialization(): void {
     this.setDateOfBirthFormControlValidators();
     this.setEducationStartDateFormControlValidators();
+    this.setEducationEndDateFormControlValidatiors();
   }
 
   private setDateOfBirthFormControlValidators(): void {
@@ -115,7 +126,22 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     ]);
   }
 
+  private setEducationEndDateFormControlValidatiors(): void {
+    this.form.controls.educationEndDate.setValidators([
+      Validators.required,
+      DateEarlierThan(this.form.controls.dateOfBirth, 'DateOfBirth'),
+      DateEarlierThan(
+        this.form.controls.educationStartDate,
+        'EducationStartDate'
+      ),
+      DateEquals(this.form.controls.dateOfBirth, 'DateOfBirth'),
+      DateEquals(this.form.controls.educationStartDate, 'EducationStartDate'),
+    ]);
+  }
+
   public handleSubmit(): null {
+    console.log(this.form.controls);
+
     if (this.form.invalid) {
       this.handleFormInvalidStatus();
       return null;
@@ -157,6 +183,38 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   public handleValueChangeOfDateOfBirth(): void {
     this.form.controls.educationStartDate.updateValueAndValidity();
     this.form.controls.educationEndDate.updateValueAndValidity();
+  }
+
+  public handleValueChangeOfEducationDirection(): null {
+    this.form.controls.educationEndDate.updateValueAndValidity();
+
+    if (this.form.controls.educationDirection.value === '') {
+      return null;
+    }
+    if (
+      this.form.controls.educationDirection.value === 'backend' ||
+      this.form.controls.educationDirection.value === 'frontend'
+    ) {
+      this.form.controls.educationEndDate.setValidators([
+        Validators.required,
+        DateEarlierThan(this.form.controls.dateOfBirth, 'DateOfBirth'),
+        DateEarlierThan(
+          this.form.controls.educationStartDate,
+          'EducationStartDate'
+        ),
+        DateEquals(this.form.controls.dateOfBirth, 'DateOfBirth'),
+        DateEquals(this.form.controls.educationStartDate, 'EducationStartDate'),
+      ]);
+
+      this.form.controls.educationEndDate.updateValueAndValidity();
+
+      return null;
+    }
+
+    this.form.controls.educationEndDate.removeValidators([Validators.required]);
+    this.form.controls.educationEndDate.updateValueAndValidity();
+
+    return null;
   }
 
   public handleValueChangeOfEducationStartDate(): void {

@@ -9,7 +9,9 @@ export function UniqueAmong<T>(data: T[], prop: keyof T): ValidatorFn {
         control.value as string
       );
 
-      return isEqualStrings ? { invalidUserNameUniqueness: true } : null;
+      if (isEqualStrings) {
+        return { invalidUserNameUniqueness: true };
+      }
     }
 
     return null;
