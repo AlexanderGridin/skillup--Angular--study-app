@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormatSettings } from '@progress/kendo-angular-dateinputs';
 import { Subscription } from 'rxjs';
 
 import { Store } from '@ngrx/store';
@@ -28,7 +29,6 @@ import { DEFAULT_DATE_FORMAT } from 'src/app/constants/default-date-format';
 import { EDUCATION_DIRECTION_FORM_OPTIONS } from 'src/app/constants/education-direction-form-options';
 
 import { getInitialCurrentDate } from 'src/app/utils/get-initial-current-date';
-import { FormatSettings } from '@progress/kendo-angular-dateinputs';
 
 @Component({
   selector: 'user-form',
