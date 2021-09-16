@@ -4,5 +4,5 @@ export interface AddUserFormDataObject {
   dateOfBirth: Date;
   educationDirection: string;
   educationStartDate: Date;
-  educationEndDate: Date;
+  educationEndDate: Date | null;
 }

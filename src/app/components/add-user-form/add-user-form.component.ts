@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
 import { UsersSelectors } from 'src/app/store/users/users.selectors';
 
 import { User } from 'src/app/interfaces/user';
-import { FormOptionDataObject } from '../../interfaces/form-option-data-object';
+import { FormOption } from '../../interfaces/form-option';
 import { AddUserFormDataObject } from 'src/app/interfaces/add-user-form-data-object';
 
 import { UsersService } from 'src/app/services/users/users.service';
@@ -22,8 +22,8 @@ import { UniqueAmong } from 'src/app/validators/UniqueAmong';
 import { DateLaterThan } from 'src/app/validators/DateLaterThan';
 import { DateEarlierThan } from 'src/app/validators/DateEarlierThan';
 
-import { GENDERS } from 'src/app/constants/genders';
-import { DIRECTIONS_OF_STUDY } from 'src/app/constants/directionsOfStudy';
+import { GENDERS_FORM_OPTIONS } from 'src/app/constants/genders-form-options';
+import { DIRECTIONS_OF_STUDY_FORM_OPTIONS } from 'src/app/constants/directions-of-study-form-options';
 
 import { createDefaultFormOption } from 'src/app/utils/createDefaultFormOption';
 
@@ -39,13 +39,15 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   private getUsersSub!: Subscription;
 
   public form!: FormGroup;
-  public genderFormOptions: FormOptionDataObject[] = GENDERS;
-  public defaultGenderFormOption: FormOptionDataObject =
-    createDefaultFormOption('Select gender', '');
+  public genderFormOptions: FormOption[] = GENDERS_FORM_OPTIONS;
+  public defaultGenderFormOption: FormOption = createDefaultFormOption(
+    'Select gender',
+    ''
+  );
 
-  public educationDirectionFormOptions: FormOptionDataObject[] =
-    DIRECTIONS_OF_STUDY;
-  public defaultEducationDirectionFormOption: FormOptionDataObject =
+  public educationDirectionFormOptions: FormOption[] =
+    DIRECTIONS_OF_STUDY_FORM_OPTIONS;
+  public defaultEducationDirectionFormOption: FormOption =
     createDefaultFormOption('Select direction of study', '');
 
   @Output() onSubmit: EventEmitter<User> = new EventEmitter<User>();

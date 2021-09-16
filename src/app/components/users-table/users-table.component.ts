@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-import { Format } from 'src/app/interfaces/format';
+import { DateFormat } from 'src/app/interfaces/date-format';
 import { User } from 'src/app/interfaces/user';
 
-import { DEFAULT_DATE_FORMAT } from 'src/app/constants/defaultDateFormat';
+import { DEFAULT_DATE_FORMAT } from 'src/app/constants/default-date-format';
 
 @Component({
   selector: 'users-table',
@@ -13,7 +13,7 @@ import { DEFAULT_DATE_FORMAT } from 'src/app/constants/defaultDateFormat';
 export class UsersTableComponent {
   @Input() public users!: User[];
 
-  public dateFormat: Format = DEFAULT_DATE_FORMAT;
+  public dateFormat: DateFormat = DEFAULT_DATE_FORMAT;
 
   public headerStyle: {} = {
     'background-color': '#666',

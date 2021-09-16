@@ -1,4 +1,4 @@
-export interface FormOptionDataObject {
+export interface FormOption {
   text: string;
   value: string | null;
 }

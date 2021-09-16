@@ -1,6 +1,6 @@
-import { FormOptionDataObject } from '../interfaces/form-option-data-object';
+import { FormOption } from '../interfaces/form-option';
 
-export const DIRECTIONS_OF_STUDY: FormOptionDataObject[] = [
+export const DIRECTIONS_OF_STUDY_FORM_OPTIONS: FormOption[] = [
   {
     text: 'Backend',
     value: 'backend',

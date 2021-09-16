@@ -1,8 +1,8 @@
-import { FormOptionDataObject } from '../interfaces/form-option-data-object';
+import { FormOption } from '../interfaces/form-option';
 
 export function createDefaultFormOption(
   text: string,
   value: '' | null
-): FormOptionDataObject {
+): FormOption {
   return { text, value };
 }
