@@ -25,7 +25,7 @@ import { DateEarlierThan } from 'src/app/validators/DateEarlierThan';
 import { GENDERS_FORM_OPTIONS } from 'src/app/constants/genders-form-options';
 import { DIRECTIONS_OF_STUDY_FORM_OPTIONS } from 'src/app/constants/directions-of-study-form-options';
 
-import { createDefaultFormOption } from 'src/app/utils/createDefaultFormOption';
+import { createDefaultFormOption } from 'src/app/utils/create-default-form-option';
 
 @Component({
   selector: 'add-user-form',

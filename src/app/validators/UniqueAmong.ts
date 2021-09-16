@@ -1,5 +1,5 @@
 import { ValidatorFn } from '@angular/forms';
-import { compareStringsCaseInsensitive } from '../utils/compareStringsCaseInsensitive';
+import { compareStringsCaseInsensitive } from '../utils/compare-strings-case-insensitive';
 
 export function UniqueAmong<T>(data: T[], prop: keyof T): ValidatorFn {
   const validate: ValidatorFn = (control) => {
