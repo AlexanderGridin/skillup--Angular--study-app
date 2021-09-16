@@ -149,7 +149,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     this.setEducationEndDateValidatorsDependingOnEducationDirectionValue();
   }
 
-  public setEducationEndDateValidatorsDependingOnEducationDirectionValue(): null {
+  private setEducationEndDateValidatorsDependingOnEducationDirectionValue(): null {
     this.form.controls.educationEndDate.updateValueAndValidity();
 
     if (this.form.controls.educationDirection.value === '') {
