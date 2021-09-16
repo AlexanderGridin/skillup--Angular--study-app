@@ -47,8 +47,8 @@ export class UserFormComponent implements OnInit, OnDestroy {
   @Input() initialEducationStartDate: Date = getInitialCurrentDate();
   @Input() initialEducationEndDate: Date = getInitialCurrentDate();
 
-  @Input() submitText: string = 'Submit';
-  @Input() cancelText: string = 'Cancel';
+  @Input() submitButtonText: string = 'Submit';
+  @Input() cancelButtonText: string = 'Cancel';
 
   private users!: User[];
   private getUsersSub!: Subscription;
