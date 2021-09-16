@@ -55,9 +55,6 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     this.getAllUsers();
     this.initForm();
     this.setValidatorsThatRequireFormInitialization();
-
-    console.log(this.form.controls.educationStartDate);
-    console.log(this.form.controls.educationEndDate);
   }
 
   private initCurrentDate(): void {
