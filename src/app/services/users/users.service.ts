@@ -4,7 +4,7 @@ import { AddUserFormDTO } from 'src/app/interfaces/add-user-form-dto';
 
 @Injectable()
 export class UsersService {
-  public createUserFromAddUserFormDataObject(
+  public createUserFromAddUserFormDTO(
     addUserFormDataObject: AddUserFormDTO
   ): User {
     let {

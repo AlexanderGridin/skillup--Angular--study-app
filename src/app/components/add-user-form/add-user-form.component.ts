@@ -145,27 +145,22 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     this.form.controls.educationEndDate.updateValueAndValidity();
   }
 
-  public handleValueChangeOfEducationDirection(): null {
+  public handleValueChangeOfEducationDirection(): void {
+    this.setEducationEndDateValidatorsDependingOnEducationDirectionValue();
+  }
+
+  public setEducationEndDateValidatorsDependingOnEducationDirectionValue(): null {
     this.form.controls.educationEndDate.updateValueAndValidity();
 
     if (this.form.controls.educationDirection.value === '') {
       return null;
     }
+
     if (
       this.form.controls.educationDirection.value === 'backend' ||
       this.form.controls.educationDirection.value === 'frontend'
     ) {
-      this.form.controls.educationEndDate.setValidators([
-        Validators.required,
-        DateEarlierThan(this.form.controls.dateOfBirth, 'DateOfBirth'),
-        DateEarlierThan(
-          this.form.controls.educationStartDate,
-          'EducationStartDate'
-        ),
-        DateEquals(this.form.controls.dateOfBirth, 'DateOfBirth'),
-        DateEquals(this.form.controls.educationStartDate, 'EducationStartDate'),
-      ]);
-
+      this.form.controls.educationEndDate.addValidators([Validators.required]);
       this.form.controls.educationEndDate.updateValueAndValidity();
 
       return null;
@@ -188,8 +183,6 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   }
 
   public handleSubmit(): null {
-    console.log(this.form.controls);
-
     if (this.form.invalid) {
       this.handleFormInvalidStatus();
       return null;
@@ -204,17 +197,16 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   }
 
   private markAllInvalidControlsAsTouched(): void {
-    for (let controlName in this.form.controls) {
-      this.form.controls[controlName].invalid &&
-        this.form.controls[controlName].markAsTouched();
+    for (let controlKey in this.form.controls) {
+      this.form.controls[controlKey].invalid &&
+        this.form.controls[controlKey].markAsTouched();
     }
   }
 
   private handleFormValidStatus(): void {
-    let addUserFormDataObject: AddUserFormDTO = this.form.value;
-    let newUser: User = this.usersService.createUserFromAddUserFormDataObject(
-      addUserFormDataObject
-    );
+    let addUserFormDTO: AddUserFormDTO = this.form.value;
+    let newUser: User =
+      this.usersService.createUserFromAddUserFormDTO(addUserFormDTO);
 
     this.onSubmit.emit(newUser);
   }
