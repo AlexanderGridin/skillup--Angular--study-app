@@ -1,4 +1,10 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { FormOptionDataObject } from '../../interfaces/form-option-data-object';
@@ -16,29 +22,28 @@ import { DateEquals } from 'src/app/validators/DateEquals';
 
 import { GENDERS } from 'src/app/constants/genders';
 import { DIRECTIONS_OF_STUDY } from 'src/app/constants/directionsOfStudy';
+import { Subscription } from 'rxjs';
+import { createDefaultFormOption } from 'src/app/utils/createDefaultFormOption';
 
 @Component({
   selector: 'add-user-form',
   templateUrl: './add-user-form.component.html',
   styleUrls: ['./add-user-form.component.css'],
 })
-export class AddUserFormComponent implements OnInit {
-  public users!: User[];
+export class AddUserFormComponent implements OnInit, OnDestroy {
+  private users!: User[];
+  private getUsersSub!: Subscription;
   public form!: FormGroup;
   public currentDate: Date = new Date();
 
   public genderFormOptions: FormOptionDataObject[] = GENDERS;
-  public defaultGenderFormOption: FormOptionDataObject = {
-    text: 'Select gender',
-    value: '',
-  };
+  public defaultGenderFormOption: FormOptionDataObject =
+    createDefaultFormOption('Select gender', '');
 
   public educationDirectionFormOptions: FormOptionDataObject[] =
     DIRECTIONS_OF_STUDY;
-  public defaultEducationDirectionFormOption: FormOptionDataObject = {
-    text: 'Select direction of study',
-    value: '',
-  };
+  public defaultEducationDirectionFormOption: FormOptionDataObject =
+    createDefaultFormOption('Select direction of study', '');
 
   @Output() onSubmit: EventEmitter<User> = new EventEmitter<User>();
   @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
@@ -52,11 +57,13 @@ export class AddUserFormComponent implements OnInit {
   }
 
   private getAllUsers(): void {
-    this.store$.select(UsersSelectors.getAllUsers).subscribe({
-      next: (usersFromStore: User[]): void => {
-        this.users = usersFromStore;
-      },
-    });
+    this.getUsersSub = this.store$
+      .select(UsersSelectors.getAllUsers)
+      .subscribe({
+        next: (usersFromStore: User[]): void => {
+          this.users = usersFromStore;
+        },
+      });
   }
 
   private initForm(): void {
@@ -140,5 +147,9 @@ export class AddUserFormComponent implements OnInit {
 
   public handleValueChangeOfEducationStartDate(): void {
     this.form.controls.dateOfBirth.updateValueAndValidity();
+  }
+
+  public ngOnDestroy(): void {
+    this.getUsersSub.unsubscribe();
   }
 }

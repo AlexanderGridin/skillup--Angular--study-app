@@ -1,4 +1,4 @@
 export interface FormOptionDataObject {
   text: string;
-  value: string;
+  value: string | null;
 }
