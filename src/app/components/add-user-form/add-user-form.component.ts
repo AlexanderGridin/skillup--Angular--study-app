@@ -1,11 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormArray,
-  AbstractControl,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { FormOptionDataObject } from '../../interfaces/form-option-data-object';
 
@@ -15,7 +9,10 @@ import { UsersService } from 'src/app/services/users/users.service';
 import { Store } from '@ngrx/store';
 import { UsersSelectors } from 'src/app/store/users/users.selectors';
 
-import { UniqueField } from 'src/app/validators/UniqueField';
+import { UniqueAmong } from 'src/app/validators/UniqueAmong';
+import { DateEarlierThan } from 'src/app/validators/EarlierThanOrEquals';
+import { DateLaterThan } from 'src/app/validators/LaterThanOrEquals';
+import { DateEquals } from 'src/app/validators/DateEquals';
 
 import { GENDERS } from 'src/app/constants/genders';
 import { DIRECTIONS_OF_STUDY } from 'src/app/constants/directionsOfStudy';
@@ -51,31 +48,7 @@ export class AddUserFormComponent implements OnInit {
   public ngOnInit(): void {
     this.getAllUsers();
     this.initForm();
-
-    console.log(this.form.controls.gender);
-  }
-
-  private initForm(): void {
-    this.form = new FormGroup({
-      userName: new FormControl('', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(15),
-        UniqueField<User>(this.users, 'userName'),
-      ]),
-      gender: new FormControl(this.defaultGenderFormOption.value, [
-        Validators.required,
-      ]),
-      dateOfBirth: new FormControl(this.currentDate, [Validators.required]),
-      educationDirection: new FormControl(
-        this.defaultEducationDirectionFormOption.value,
-        [Validators.required]
-      ),
-      educationStartDate: new FormControl(this.currentDate, [
-        Validators.required,
-      ]),
-      educationEndDate: new FormControl(this.currentDate),
-    });
+    this.setValidatorsThatRequireFormInitialization();
   }
 
   private getAllUsers(): void {
@@ -86,10 +59,50 @@ export class AddUserFormComponent implements OnInit {
     });
   }
 
+  private initForm(): void {
+    this.form = new FormGroup({
+      userName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(15),
+        UniqueAmong<User>(this.users, 'userName'),
+      ]),
+      gender: new FormControl(this.defaultGenderFormOption.value, [
+        Validators.required,
+      ]),
+      dateOfBirth: new FormControl(this.currentDate),
+      educationDirection: new FormControl(
+        this.defaultEducationDirectionFormOption.value,
+        [Validators.required]
+      ),
+      educationStartDate: new FormControl(this.currentDate),
+      educationEndDate: new FormControl(this.currentDate),
+    });
+  }
+
+  private setValidatorsThatRequireFormInitialization(): void {
+    this.form.controls.dateOfBirth.setValidators([
+      Validators.required,
+      DateLaterThan(
+        this.form.controls.educationStartDate,
+        'EducationStartDate'
+      ),
+      DateLaterThan(this.form.controls.educationEndDate, 'EducationEndDate'),
+      DateEquals(this.form.controls.educationStartDate, 'EducationStartDate'),
+      DateEquals(this.form.controls.educationEndDate, 'EducationEndDate'),
+    ]);
+  }
+
+  public handleValueChangeOfEducationEndDate(): void {
+    this.form.controls.dateOfBirth.updateValueAndValidity();
+  }
+
+  public handleValueChangeOfEducationStartDate(): void {
+    this.form.controls.dateOfBirth.updateValueAndValidity();
+  }
+
   public handleSubmit(): null {
-    console.log(this.form);
-    console.log(this.form.value);
-    console.log(this.form.invalid);
+    console.log(this.form.controls.dateOfBirth.value);
 
     if (this.form.invalid) {
       this.handleFormInvalidStatus();
@@ -105,11 +118,6 @@ export class AddUserFormComponent implements OnInit {
       this.form.controls[controlName].invalid &&
         this.form.controls[controlName].markAsTouched();
     }
-
-    // this.form.value.userName === '' &&
-    //   this.form.controls.userName.markAsTouched();
-
-    // this.form.controls.gender.updateValueAndValidity();
   }
 
   private handleFormValidStatus(): void {
@@ -128,9 +136,5 @@ export class AddUserFormComponent implements OnInit {
 
   public handleCancel(event: Event): void {
     this.onCancel.emit(event);
-  }
-
-  public handleDropdownChanges(): void {
-    console.log(this.form.controls.gender);
   }
 }

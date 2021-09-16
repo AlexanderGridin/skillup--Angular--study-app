@@ -38,7 +38,7 @@
           form.controls.userName.touched &&
           form.controls.userName.errors?.required
         "
-        >Ther user name is required.</kendo-formerror
+        >The user name is required.</kendo-formerror
       >
     </kendo-formfield>
   </div>
@@ -54,8 +54,6 @@
           textField="text"
           valueField="value"
           [valuePrimitive]="true"
-          isRequired="true"
-          (valueChange)="handleDropdownChanges()"
         >
         </kendo-dropdownlist>
       </kendo-label>
@@ -63,7 +61,7 @@
         *ngIf="
           form.controls.gender.touched && form.controls.gender.errors?.required
         "
-        >Ther gender is required.</kendo-formerror
+        >The gender is required.</kendo-formerror
       >
     </kendo-formfield>
   </div>
@@ -76,6 +74,34 @@
           formControlName="dateOfBirth"
         ></kendo-datepicker>
       </kendo-label>
+
+      <kendo-formerror
+        *ngIf="
+          form.controls.dateOfBirth.errors?.isDateLaterThanEducationEndDate
+        "
+        >The date of birth cannot be later than the end date of
+        training</kendo-formerror
+      >
+      <kendo-formerror
+        *ngIf="
+          form.controls.dateOfBirth.errors?.isDateLaterThanEducationStartDate
+        "
+        >The date of birth cannot be later than the start date of
+        training</kendo-formerror
+      >
+      <kendo-formerror *ngIf="form.controls.dateOfBirth.errors?.required"
+        >The date of birth is required</kendo-formerror
+      >
+      <kendo-formerror
+        *ngIf="form.controls.dateOfBirth.errors?.isDateEqualsEducationStartDate"
+        >The date of birth cannot be equals the start date of
+        training</kendo-formerror
+      >
+      <kendo-formerror
+        *ngIf="form.controls.dateOfBirth.errors?.isDateEqualsEducationEndDate"
+        >The date of birth cannot be equals the end date of
+        training</kendo-formerror
+      >
     </kendo-formfield>
   </div>
 
@@ -98,7 +124,7 @@
           form.controls.educationDirection.touched &&
           form.controls.educationDirection.errors?.required
         "
-        >Ther gender is required.</kendo-formerror
+        >The education direction is required.</kendo-formerror
       >
     </kendo-formfield>
   </div>
@@ -109,6 +135,7 @@
         <kendo-datepicker
           class="add-user-form__control"
           formControlName="educationStartDate"
+          (valueChange)="handleValueChangeOfEducationStartDate()"
         ></kendo-datepicker>
       </kendo-label>
     </kendo-formfield>
@@ -120,6 +147,7 @@
         <kendo-datepicker
           class="add-user-form__control"
           formControlName="educationEndDate"
+          (valueChange)="handleValueChangeOfEducationEndDate()"
         ></kendo-datepicker>
       </kendo-label>
     </kendo-formfield>
