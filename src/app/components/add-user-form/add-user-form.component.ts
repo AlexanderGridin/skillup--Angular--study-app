@@ -81,6 +81,10 @@ export class AddUserFormComponent implements OnInit {
   }
 
   private setValidatorsThatRequireFormInitialization(): void {
+    this.setDateOfBirthFormControlValidators();
+  }
+
+  private setDateOfBirthFormControlValidators(): void {
     this.form.controls.dateOfBirth.setValidators([
       Validators.required,
       DateLaterThan(
@@ -91,14 +95,6 @@ export class AddUserFormComponent implements OnInit {
       DateEquals(this.form.controls.educationStartDate, 'EducationStartDate'),
       DateEquals(this.form.controls.educationEndDate, 'EducationEndDate'),
     ]);
-  }
-
-  public handleValueChangeOfEducationEndDate(): void {
-    this.form.controls.dateOfBirth.updateValueAndValidity();
-  }
-
-  public handleValueChangeOfEducationStartDate(): void {
-    this.form.controls.dateOfBirth.updateValueAndValidity();
   }
 
   public handleSubmit(): null {
@@ -136,5 +132,13 @@ export class AddUserFormComponent implements OnInit {
 
   public handleCancel(event: Event): void {
     this.onCancel.emit(event);
+  }
+
+  public handleValueChangeOfEducationEndDate(): void {
+    this.form.controls.dateOfBirth.updateValueAndValidity();
+  }
+
+  public handleValueChangeOfEducationStartDate(): void {
+    this.form.controls.dateOfBirth.updateValueAndValidity();
   }
 }
