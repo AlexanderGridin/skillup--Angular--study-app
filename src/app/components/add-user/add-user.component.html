@@ -10,8 +10,9 @@
   [width]="modalWidth"
   (close)="closeModal()"
 >
-  <add-user-form
+  <user-form
+    [submitText]="'Add user'"
     (onSubmit)="handleFormSubmit($event)"
     (onCancel)="closeModal()"
-  ></add-user-form>
+  ></user-form>
 </kendo-dialog>

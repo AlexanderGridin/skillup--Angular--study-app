@@ -25,6 +25,7 @@ import { ContainerComponent } from './components/container/container.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { LabelModule } from '@progress/kendo-angular-label';
 import { PageComponent } from './components/page/page.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { PageComponent } from './components/page/page.component';
     ContainerComponent,
     UsersTableComponent,
     PageComponent,
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,

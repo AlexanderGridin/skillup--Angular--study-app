@@ -3,6 +3,7 @@ import {
   OnInit,
   OnDestroy,
   EventEmitter,
+  Input,
   Output,
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -25,33 +26,37 @@ import { DateEarlierThan } from 'src/app/validators/date-earlier-than';
 import { GENDERS_FORM_OPTIONS } from 'src/app/constants/genders-form-options';
 import { DIRECTIONS_OF_STUDY_FORM_OPTIONS } from 'src/app/constants/directions-of-study-form-options';
 
-import { createFormOption } from 'src/app/utils/create-form-option';
 import { getInitialCurrentDate } from 'src/app/utils/get-initial-current-date';
 
 @Component({
-  selector: 'add-user-form',
-  templateUrl: './add-user-form.component.html',
-  styleUrls: ['./add-user-form.component.css'],
+  selector: 'user-form',
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.css'],
 })
-export class AddUserFormComponent implements OnInit, OnDestroy {
-  public defaultDate: Date = getInitialCurrentDate();
+export class UserFormComponent implements OnInit, OnDestroy {
+  @Input() initialUserName: string = '';
+  @Input() initialGender: FormOption = {
+    text: 'Select gender',
+    value: '',
+  };
+  @Input() initialDateOfBirth: Date = getInitialCurrentDate();
+  @Input() initialEducationDirection: FormOption = {
+    text: 'Select direction of study',
+    value: '',
+  };
+  @Input() initialEducationStartDate: Date = getInitialCurrentDate();
+  @Input() initialEducationEndDate: Date = getInitialCurrentDate();
+
+  @Input() submitText: string = 'Submit';
+  @Input() cancelText: string = 'Cancel';
 
   private users!: User[];
   private getUsersSub!: Subscription;
 
   public form!: FormGroup;
   public genderFormOptions: FormOption[] = GENDERS_FORM_OPTIONS;
-  public defaultGenderFormOption: FormOption = createFormOption(
-    'Select gender',
-    ''
-  );
-
   public educationDirectionFormOptions: FormOption[] =
     DIRECTIONS_OF_STUDY_FORM_OPTIONS;
-  public defaultEducationDirectionFormOption: FormOption = createFormOption(
-    'Select direction of study',
-    ''
-  );
 
   @Output() onSubmit: EventEmitter<User> = new EventEmitter<User>();
   @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
@@ -76,27 +81,25 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
 
   private initForm(): void {
     this.form = new FormGroup({
-      userName: new FormControl('', [
+      userName: new FormControl(this.initialUserName, [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(15),
         UniqueAmong<User>(this.users, 'userName'),
       ]),
 
-      gender: new FormControl(this.defaultGenderFormOption.value, [
-        Validators.required,
-      ]),
+      gender: new FormControl(this.initialGender.value, [Validators.required]),
 
-      dateOfBirth: new FormControl(this.defaultDate),
+      dateOfBirth: new FormControl(this.initialDateOfBirth),
 
       educationDirection: new FormControl(
-        this.defaultEducationDirectionFormOption.value,
+        this.initialEducationDirection.value,
         [Validators.required]
       ),
 
-      educationStartDate: new FormControl(this.defaultDate),
+      educationStartDate: new FormControl(this.initialEducationStartDate),
 
-      educationEndDate: new FormControl(this.defaultDate),
+      educationEndDate: new FormControl(this.initialEducationEndDate),
     });
   }
 

@@ -1,0 +1,32 @@
+.user-form__item {
+  display: block;
+}
+
+.user-form__item + .user-form__item {
+  margin-top: 15px;
+}
+
+.user-form__label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.user-form__required {
+  color: #ff6358;
+}
+
+.user-form__control {
+  width: 100%;
+}
+
+.user-form__actions {
+  align-items: flex-start;
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 15px;
+}
+
+.user-form__button {
+  margin-right: 10px;
+}
