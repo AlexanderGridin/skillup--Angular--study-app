@@ -24,9 +24,11 @@ import { DateLaterThan } from 'src/app/validators/date-later-than';
 import { DateEarlierThan } from 'src/app/validators/date-earlier-than';
 
 import { GENDER_FORM_OPTIONS } from 'src/app/constants/gender-form-options';
+import { DEFAULT_DATE_FORMAT } from 'src/app/constants/default-date-format';
 import { EDUCATION_DIRECTION_FORM_OPTIONS } from 'src/app/constants/education-direction-form-options';
 
 import { getInitialCurrentDate } from 'src/app/utils/get-initial-current-date';
+import { FormatSettings } from '@progress/kendo-angular-dateinputs';
 
 @Component({
   selector: 'user-form',
@@ -63,6 +65,11 @@ export class UserFormComponent implements OnInit, OnDestroy {
     'EducationStartDate';
   private readonly EDUCATION_END_DATE_FORM_CONTROL_TITLE: string =
     'EducationEndDate';
+
+  public datePickerDateFormat: FormatSettings = {
+    displayFormat: DEFAULT_DATE_FORMAT,
+    inputFormat: DEFAULT_DATE_FORMAT,
+  };
 
   @Output() onSubmit: EventEmitter<User> = new EventEmitter<User>();
   @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();

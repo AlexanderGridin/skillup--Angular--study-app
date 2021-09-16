@@ -85,6 +85,7 @@
     <kendo-datepicker
       class="user-form__control user-form__control--date-of-birth"
       formControlName="dateOfBirth"
+      [format]="datePickerDateFormat"
       (valueChange)="handleValueChangeOfDateOfBirth()"
       #dateOfBirth
     ></kendo-datepicker>
@@ -161,6 +162,7 @@
     <kendo-datepicker
       class="user-form__control user-form__control--education-start-date"
       formControlName="educationStartDate"
+      [format]="datePickerDateFormat"
       (valueChange)="handleValueChangeOfEducationStartDate()"
       #educationStartDate
     ></kendo-datepicker>
@@ -213,6 +215,7 @@
     <kendo-datepicker
       class="user-form__control user-form__control--education-end-date"
       formControlName="educationEndDate"
+      [format]="datePickerDateFormat"
       (valueChange)="handleValueChangeOfEducationEndDate()"
       #educationEndDate
     ></kendo-datepicker>
