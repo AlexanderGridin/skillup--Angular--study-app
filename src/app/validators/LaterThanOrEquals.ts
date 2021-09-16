@@ -5,7 +5,7 @@ export function DateLaterThan(
   dateControlName: string
 ): ValidatorFn {
   const validate: ValidatorFn = (control: AbstractControl) => {
-    if (!control.value) {
+    if (!control.value || !dateControl.value) {
       return null;
     }
 

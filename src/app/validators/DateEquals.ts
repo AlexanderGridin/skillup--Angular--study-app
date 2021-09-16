@@ -7,7 +7,7 @@ export function DateEquals(
   const validate: ValidatorFn = (
     control: AbstractControl
   ): ValidationErrors | null => {
-    if (!control.value) {
+    if (!control.value || !dateControl.value) {
       return null;
     }
 

@@ -89,6 +89,7 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
 
   private setValidatorsThatRequireFormInitialization(): void {
     this.setDateOfBirthFormControlValidators();
+    this.setEducationStartDateFormControlValidators();
   }
 
   private setDateOfBirthFormControlValidators(): void {
@@ -104,12 +105,24 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     ]);
   }
 
-  public handleSubmit(): void {
+  private setEducationStartDateFormControlValidators(): void {
+    this.form.controls.educationStartDate.setValidators([
+      Validators.required,
+      DateEarlierThan(this.form.controls.dateOfBirth, 'DateOfBirth'),
+      DateLaterThan(this.form.controls.educationEndDate, 'EducationEndDate'),
+      DateEquals(this.form.controls.dateOfBirth, 'DateOfBirth'),
+      DateEquals(this.form.controls.educationEndDate, 'EducationEndDate'),
+    ]);
+  }
+
+  public handleSubmit(): null {
     if (this.form.invalid) {
       this.handleFormInvalidStatus();
-    } else {
-      this.handleFormValidStatus();
+      return null;
     }
+
+    this.handleFormValidStatus();
+    return null;
   }
 
   private handleFormInvalidStatus(): void {
@@ -141,12 +154,21 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     this.onCancel.emit(event);
   }
 
-  public handleValueChangeOfEducationEndDate(): void {
-    this.form.controls.dateOfBirth.updateValueAndValidity();
+  public handleValueChangeOfDateOfBirth(): void {
+    this.form.controls.educationStartDate.updateValueAndValidity();
+    this.form.controls.educationEndDate.updateValueAndValidity();
   }
 
   public handleValueChangeOfEducationStartDate(): void {
+    console.log(this.form.controls.educationStartDate);
+
     this.form.controls.dateOfBirth.updateValueAndValidity();
+    this.form.controls.educationEndDate.updateValueAndValidity();
+  }
+
+  public handleValueChangeOfEducationEndDate(): void {
+    this.form.controls.dateOfBirth.updateValueAndValidity();
+    this.form.controls.educationStartDate.updateValueAndValidity();
   }
 
   public ngOnDestroy(): void {

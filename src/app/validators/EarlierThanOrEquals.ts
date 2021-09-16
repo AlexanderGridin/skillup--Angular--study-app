@@ -5,7 +5,7 @@ export function DateEarlierThan(
   dateControlName: string
 ): ValidatorFn {
   const validate: ValidatorFn = (control: AbstractControl) => {
-    if (!control.value) {
+    if (!control.value || !dateControl.value) {
       return null;
     }
 
@@ -16,6 +16,7 @@ export function DateEarlierThan(
     const error: ValidationErrors = {};
 
     if (dateForCheck < targetDate) {
+      error[errorProp] = true;
       return error;
     }
 
