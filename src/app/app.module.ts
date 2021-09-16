@@ -7,7 +7,6 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
-import { AddUserFormComponent } from './components/add-user-form/add-user-form.component';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 
@@ -30,7 +29,6 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AddUserFormComponent,
     UsersPageComponent,
     PageTitleComponent,
     AddUserComponent,
