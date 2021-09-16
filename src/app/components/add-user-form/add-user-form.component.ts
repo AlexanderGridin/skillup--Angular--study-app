@@ -17,10 +17,10 @@ import { AddUserFormDataObject } from 'src/app/interfaces/add-user-form-data-obj
 
 import { UsersService } from 'src/app/services/users/users.service';
 
-import { DateEquals } from 'src/app/validators/DateEquals';
-import { UniqueAmong } from 'src/app/validators/UniqueAmong';
-import { DateLaterThan } from 'src/app/validators/DateLaterThan';
-import { DateEarlierThan } from 'src/app/validators/DateEarlierThan';
+import { DateEquals } from 'src/app/validators/date-equals';
+import { UniqueAmong } from 'src/app/validators/unique-among';
+import { DateLaterThan } from 'src/app/validators/date-later-than';
+import { DateEarlierThan } from 'src/app/validators/date-earlier-than';
 
 import { GENDERS_FORM_OPTIONS } from 'src/app/constants/genders-form-options';
 import { DIRECTIONS_OF_STUDY_FORM_OPTIONS } from 'src/app/constants/directions-of-study-form-options';
