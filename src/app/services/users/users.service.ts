@@ -16,8 +16,6 @@ export class UsersService {
       educationEndDate,
     } = addUserFormDataObject;
 
-    // educationEndDate = educationEndDate === null ? ;
-
     return {
       userName,
       gender,
