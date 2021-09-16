@@ -12,7 +12,7 @@ export function DateEarlierThan(
     const dateForCheck: number = control.value.getTime();
     const targetDate: number = dateControl.value.getTime();
 
-    let errorProp: string = `isDateEarlierThan${dateControlName}`;
+    const errorProp: string = `isDateEarlierThan${dateControlName}`;
     const error: ValidationErrors = {};
 
     if (dateForCheck < targetDate) {

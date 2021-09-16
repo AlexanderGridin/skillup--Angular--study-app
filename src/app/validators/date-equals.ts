@@ -14,7 +14,7 @@ export function DateEquals(
     const dateForCheck: number = control.value.getTime();
     const targetDate: number = dateControl.value.getTime();
 
-    let errorProp: string = `isDateEquals${dateControlName}`;
+    const errorProp: string = `isDateEquals${dateControlName}`;
     const error: ValidationErrors = {};
 
     if (dateForCheck === targetDate) {
