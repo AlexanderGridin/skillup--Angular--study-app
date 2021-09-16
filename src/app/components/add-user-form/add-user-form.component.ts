@@ -6,23 +6,25 @@ import {
   Output,
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
-import { FormOptionDataObject } from '../../interfaces/form-option-data-object';
-
-import { User } from 'src/app/interfaces/user';
-import { AddUserFormDataObject } from 'src/app/interfaces/add-user-form-data-object';
-import { UsersService } from 'src/app/services/users/users.service';
 import { Store } from '@ngrx/store';
 import { UsersSelectors } from 'src/app/store/users/users.selectors';
 
-import { UniqueAmong } from 'src/app/validators/UniqueAmong';
-import { DateEarlierThan } from 'src/app/validators/DateEarlierThan';
-import { DateLaterThan } from 'src/app/validators/DateLaterThan';
+import { User } from 'src/app/interfaces/user';
+import { FormOptionDataObject } from '../../interfaces/form-option-data-object';
+import { AddUserFormDataObject } from 'src/app/interfaces/add-user-form-data-object';
+
+import { UsersService } from 'src/app/services/users/users.service';
+
 import { DateEquals } from 'src/app/validators/DateEquals';
+import { UniqueAmong } from 'src/app/validators/UniqueAmong';
+import { DateLaterThan } from 'src/app/validators/DateLaterThan';
+import { DateEarlierThan } from 'src/app/validators/DateEarlierThan';
 
 import { GENDERS } from 'src/app/constants/genders';
 import { DIRECTIONS_OF_STUDY } from 'src/app/constants/directionsOfStudy';
-import { Subscription } from 'rxjs';
+
 import { createDefaultFormOption } from 'src/app/utils/createDefaultFormOption';
 
 @Component({
@@ -31,11 +33,12 @@ import { createDefaultFormOption } from 'src/app/utils/createDefaultFormOption';
   styleUrls: ['./add-user-form.component.css'],
 })
 export class AddUserFormComponent implements OnInit, OnDestroy {
+  public defaultDate!: Date;
+
   private users!: User[];
   private getUsersSub!: Subscription;
-  public form!: FormGroup;
-  public currentDate!: Date;
 
+  public form!: FormGroup;
   public genderFormOptions: FormOptionDataObject[] = GENDERS;
   public defaultGenderFormOption: FormOptionDataObject =
     createDefaultFormOption('Select gender', '');
@@ -51,16 +54,15 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   constructor(private store$: Store, private usersService: UsersService) {}
 
   public ngOnInit(): void {
-    this.initCurrentDate();
+    this.initDefaultDate();
     this.getAllUsers();
     this.initForm();
     this.setValidatorsThatRequireFormInitialization();
   }
 
-  private initCurrentDate(): void {
+  private initDefaultDate(): void {
     let time: number = new Date().setHours(0, 0, 0, 0);
-    this.currentDate = new Date(time);
-    console.log(this.currentDate);
+    this.defaultDate = new Date(time);
   }
 
   private getAllUsers(): void {
@@ -81,16 +83,21 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
         Validators.maxLength(15),
         UniqueAmong<User>(this.users, 'userName'),
       ]),
+
       gender: new FormControl(this.defaultGenderFormOption.value, [
         Validators.required,
       ]),
-      dateOfBirth: new FormControl(this.currentDate),
+
+      dateOfBirth: new FormControl(this.defaultDate),
+
       educationDirection: new FormControl(
         this.defaultEducationDirectionFormOption.value,
         [Validators.required]
       ),
-      educationStartDate: new FormControl(this.currentDate),
-      educationEndDate: new FormControl(this.currentDate),
+
+      educationStartDate: new FormControl(this.defaultDate),
+
+      educationEndDate: new FormControl(this.defaultDate),
     });
   }
 
@@ -136,47 +143,6 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
     ]);
   }
 
-  public handleSubmit(): null {
-    console.log(this.form.controls);
-
-    if (this.form.invalid) {
-      this.handleFormInvalidStatus();
-      return null;
-    }
-
-    this.handleFormValidStatus();
-    return null;
-  }
-
-  private handleFormInvalidStatus(): void {
-    this.markAllInvalidControlsAsTouched();
-  }
-
-  private markAllInvalidControlsAsTouched(): void {
-    for (let controlName in this.form.controls) {
-      this.form.controls[controlName].invalid &&
-        this.form.controls[controlName].markAsTouched();
-    }
-  }
-
-  private handleFormValidStatus(): void {
-    let addUserFormDataObject: AddUserFormDataObject = this.form.value;
-    let newUser: User = this.usersService.createUserFromAddUserFormDataObject(
-      addUserFormDataObject
-    );
-
-    this.onSubmit.emit(newUser);
-    this.resetForm();
-  }
-
-  private resetForm(): void {
-    this.form.controls.userName.reset('');
-  }
-
-  public handleCancel(event: Event): void {
-    this.onCancel.emit(event);
-  }
-
   public handleValueChangeOfDateOfBirth(): void {
     this.form.controls.educationStartDate.updateValueAndValidity();
     this.form.controls.educationEndDate.updateValueAndValidity();
@@ -215,8 +181,6 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   }
 
   public handleValueChangeOfEducationStartDate(): void {
-    console.log(this.form.controls.educationStartDate);
-
     this.form.controls.dateOfBirth.updateValueAndValidity();
     this.form.controls.educationEndDate.updateValueAndValidity();
   }
@@ -224,6 +188,42 @@ export class AddUserFormComponent implements OnInit, OnDestroy {
   public handleValueChangeOfEducationEndDate(): void {
     this.form.controls.dateOfBirth.updateValueAndValidity();
     this.form.controls.educationStartDate.updateValueAndValidity();
+  }
+
+  public handleSubmit(): null {
+    console.log(this.form.controls);
+
+    if (this.form.invalid) {
+      this.handleFormInvalidStatus();
+      return null;
+    }
+
+    this.handleFormValidStatus();
+    return null;
+  }
+
+  private handleFormInvalidStatus(): void {
+    this.markAllInvalidControlsAsTouched();
+  }
+
+  private markAllInvalidControlsAsTouched(): void {
+    for (let controlName in this.form.controls) {
+      this.form.controls[controlName].invalid &&
+        this.form.controls[controlName].markAsTouched();
+    }
+  }
+
+  private handleFormValidStatus(): void {
+    let addUserFormDataObject: AddUserFormDataObject = this.form.value;
+    let newUser: User = this.usersService.createUserFromAddUserFormDataObject(
+      addUserFormDataObject
+    );
+
+    this.onSubmit.emit(newUser);
+  }
+
+  public handleCancel(event: Event): void {
+    this.onCancel.emit(event);
   }
 
   public ngOnDestroy(): void {
