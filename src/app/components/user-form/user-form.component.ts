@@ -199,17 +199,18 @@ export class UserFormComponent implements OnInit, OnDestroy {
 
   private setEducationEndDateValidatorsDependingOnEducationDirectionValue(): null {
     if (
-      this.form.controls.educationDirection.value === '' ||
       this.form.controls.educationDirection.value === 'backend' ||
       this.form.controls.educationDirection.value === 'frontend'
     ) {
-      this.form.controls.educationEndDate.addValidators([Validators.required]);
+      this.form.controls.educationEndDate.removeValidators([
+        Validators.required,
+      ]);
       this.form.controls.educationEndDate.updateValueAndValidity();
 
       return null;
     }
 
-    this.form.controls.educationEndDate.removeValidators([Validators.required]);
+    this.form.controls.educationEndDate.addValidators([Validators.required]);
     this.form.controls.educationEndDate.updateValueAndValidity();
 
     return null;
