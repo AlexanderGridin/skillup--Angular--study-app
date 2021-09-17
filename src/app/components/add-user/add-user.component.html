@@ -12,7 +12,7 @@
 <kendo-dialog
   class="add-user__dialog"
   *ngIf="isModalVisible"
-  title="modalTitle"
+  [title]="modalTitle"
   [minWidth]="modalMinWidth"
   [width]="modalWidth"
   (close)="closeModal()"
