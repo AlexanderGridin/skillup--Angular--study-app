@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-
 import { User } from 'src/app/interfaces/user';
-
 import { DEFAULT_DATE_FORMAT } from 'src/app/constants/default-date-format';
 
 @Component({

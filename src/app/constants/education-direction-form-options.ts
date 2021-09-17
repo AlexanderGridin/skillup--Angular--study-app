@@ -15,14 +15,14 @@ export const EDUCATION_DIRECTION_FORM_OPTIONS: FormOption[] = [
   },
   {
     text: 'Project Management',
-    value: 'project management',
+    value: 'projectManagement',
   },
   {
     text: 'Quality Assurance',
-    value: 'quality assurance',
+    value: 'qualityAssurance',
   },
   {
     text: 'Business Analytic',
-    value: 'business analytic',
+    value: 'businessAnalytic',
   },
 ];
