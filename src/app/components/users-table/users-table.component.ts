@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
 import { DEFAULT_DATE_FORMAT } from 'src/app/constants/default-date-format';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'users-table',
@@ -22,4 +23,15 @@ export class UsersTableComponent {
   public style: {} = {
     'text-align': 'center',
   };
+
+  @Output() private onUserEdit: EventEmitter<User> = new EventEmitter<User>();
+  @Output() private onUserRemove: EventEmitter<User> = new EventEmitter<User>();
+
+  public editUser(user: User): void {
+    this.onUserEdit.emit(user);
+  }
+
+  public removeUser(user: User): void {
+    this.onUserRemove.emit(user);
+  }
 }

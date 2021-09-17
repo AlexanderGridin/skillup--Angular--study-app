@@ -26,6 +26,12 @@ export class UsersPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  public handleUserEditing(user: User): void {}
+
+  public handleUserRemoving(user: User): void {
+    this.usersStoreService.removeUser(user);
+  }
+
   public ngOnDestroy(): void {
     this.usersSub.unsubscribe();
   }

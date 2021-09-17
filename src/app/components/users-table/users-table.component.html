@@ -44,4 +44,16 @@
     [format]="dateFormat"
   >
   </kendo-grid-column>
+  <kendo-grid-column
+    title="Actions"
+    [headerStyle]="headerStyle"
+    [style]="style"
+  >
+    <ng-template kendoGridCellTemplate let-user>
+      <button kendoButton (click)="editUser(user)">Edit</button>
+      <button kendoButton [primary]="true" (click)="removeUser(user)">
+        Remove
+      </button>
+    </ng-template>
+  </kendo-grid-column>
 </kendo-grid>

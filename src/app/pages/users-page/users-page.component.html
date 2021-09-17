@@ -1,4 +1,8 @@
 <page [title]="'Users'">
   <add-user></add-user>
-  <users-table [users]="users"></users-table>
+  <users-table
+    [users]="users"
+    (onUserEdit)="handleUserEditing($event)"
+    (onUserRemove)="handleUserRemoving($event)"
+  ></users-table>
 </page>
