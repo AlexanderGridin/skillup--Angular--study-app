@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  OnInit,
   OnChanges,
   EventEmitter,
   Output,
@@ -16,7 +15,7 @@ import { UsersService } from 'src/app/services/users/users.service';
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css'],
 })
-export class EditUserComponent implements OnInit, OnChanges {
+export class EditUserComponent implements OnChanges {
   @Input() public user!: User | null;
   public userFormDataObj!: AddUserFormDataObj | null;
 
@@ -31,8 +30,6 @@ export class EditUserComponent implements OnInit, OnChanges {
     private usersStoreService: UsersStoreService,
     private usersService: UsersService
   ) {}
-
-  public ngOnInit(): void {}
 
   public ngOnChanges(): void {
     this.userFormDataObj = this.usersService.convertUserToAddUserFormDataObj(
