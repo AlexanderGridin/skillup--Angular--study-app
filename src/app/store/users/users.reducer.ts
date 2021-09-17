@@ -6,22 +6,22 @@ import { User } from 'src/app/interfaces/user';
 
 const initialStore: UsersStore = {
   users: [
-    {
-      userName: 'Ivanov',
-      gender: 'Male',
-      educationDirection: 'Frontend',
-      dateOfBirth: new Date(2014, 1, 1),
-      educationStartDate: new Date(2020, 10, 1),
-      educationEndDate: new Date(2021, 12, 1),
-    },
-    {
-      userName: 'Ivanova',
-      gender: 'Female',
-      educationDirection: 'Backend',
-      dateOfBirth: new Date(2014, 1, 1),
-      educationStartDate: new Date(2020, 10, 2),
-      educationEndDate: new Date(2021, 11, 1),
-    },
+    // {
+    //   userName: 'Ivanov',
+    //   gender: 'Male',
+    //   educationDirection: 'Frontend',
+    //   dateOfBirth: new Date(2014, 1, 1),
+    //   educationStartDate: new Date(2020, 10, 1),
+    //   educationEndDate: new Date(2021, 12, 1),
+    // },
+    // {
+    //   userName: 'Ivanova',
+    //   gender: 'Female',
+    //   educationDirection: 'Backend',
+    //   dateOfBirth: new Date(2014, 1, 1),
+    //   educationStartDate: new Date(2020, 10, 2),
+    //   educationEndDate: new Date(2021, 11, 1),
+    // },
   ],
 };
 
