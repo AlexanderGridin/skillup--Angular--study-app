@@ -36,29 +36,38 @@ import { getInitialCurrentDate } from 'src/app/utils/get-initial-current-date';
   styleUrls: ['./user-form.component.css'],
 })
 export class UserFormComponent implements OnInit, OnDestroy {
-  @Input() initialUserName: string = '';
-  @Input() initialGender: FormOption = {
-    text: 'Select gender',
-    value: '',
-  };
-  @Input() initialDateOfBirth: Date = getInitialCurrentDate();
-  @Input() initialEducationDirection: FormOption = {
-    text: 'Select direction of study',
-    value: '',
-  };
-  @Input() initialEducationStartDate: Date = getInitialCurrentDate();
-  @Input() initialEducationEndDate: Date = getInitialCurrentDate();
+  @Input() initialUserName: string | undefined = '';
+  @Input() initialGender: FormOption | undefined;
+  @Input() initialDateOfBirth: Date | null | undefined =
+    getInitialCurrentDate();
+  @Input() initialEducationDirection: FormOption | undefined;
+  @Input() initialEducationStartDate: Date | null | undefined =
+    getInitialCurrentDate();
+  @Input() initialEducationEndDate: Date | null | undefined =
+    getInitialCurrentDate();
 
   @Input() submitButtonText: string = 'Submit';
   @Input() cancelButtonText: string = 'Cancel';
+
+  @Input() isEditing: boolean = false;
 
   private users!: User[];
   private getAllUsersSub!: Subscription;
 
   public form!: FormGroup;
+
   public genderFormOptions: FormOption[] = GENDER_FORM_OPTIONS;
+  public readonly defaultGenderFormOption: FormOption = {
+    text: 'Select gender',
+    value: '',
+  };
+
   public educationDirectionFormOptions: FormOption[] =
     EDUCATION_DIRECTION_FORM_OPTIONS;
+  public readonly defaultEducationDirectionFormOption: FormOption = {
+    text: 'Select direction of study',
+    value: '',
+  };
 
   private readonly DATE_OF_BIRTH_FORM_CONTROL_TITLE: string = 'DateOfBirth';
   private readonly EDUCATION_START_DATE_FORM_CONTROL_TITLE: string =
@@ -77,19 +86,31 @@ export class UserFormComponent implements OnInit, OnDestroy {
   constructor(private store$: Store, private usersService: UsersService) {}
 
   public ngOnInit(): void {
-    this.getAllUsers();
+    this.getUsers();
     this.initForm();
     this.setValidatorsThatRequireFormInitialization();
   }
 
-  private getAllUsers(): void {
-    this.getAllUsersSub = this.store$
-      .select(UsersSelectors.getAllUsers)
-      .subscribe({
-        next: (usersFromStore: User[]): void => {
-          this.users = usersFromStore;
-        },
-      });
+  private getUsers(): void {
+    if (this.isEditing) {
+      this.getAllUsersSub = this.store$
+        .select(UsersSelectors.getAllUsersExcluding(this.initialUserName))
+        .subscribe({
+          next: (usersFromStore: User[]): void => {
+            this.users = usersFromStore;
+          },
+        });
+    }
+
+    if (!this.isEditing) {
+      this.getAllUsersSub = this.store$
+        .select(UsersSelectors.getAllUsers)
+        .subscribe({
+          next: (usersFromStore: User[]): void => {
+            this.users = usersFromStore;
+          },
+        });
+    }
   }
 
   private initForm(): void {
@@ -101,12 +122,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
         UniqueAmong<User>(this.users, 'userName'),
       ]),
 
-      gender: new FormControl(this.initialGender.value, [Validators.required]),
+      gender: new FormControl(this.initialGender?.value, [Validators.required]),
 
       dateOfBirth: new FormControl(this.initialDateOfBirth),
 
       educationDirection: new FormControl(
-        this.initialEducationDirection.value,
+        this.initialEducationDirection?.value,
         [Validators.required]
       ),
 

@@ -1,0 +1,22 @@
+<kendo-dialog
+  class="edit-user__dialog"
+  *ngIf="userFormDataObj"
+  [title]="modalTitle"
+  [minWidth]="modalMinWidth"
+  [width]="modalWidth"
+  (close)="closeModal()"
+>
+  <user-form
+    class="edit-user__form"
+    [initialUserName]="userFormDataObj?.userName"
+    [initialGender]="userFormDataObj?.gender"
+    [initialDateOfBirth]="userFormDataObj?.dateOfBirth"
+    [initialEducationDirection]="userFormDataObj?.educationDirection"
+    [initialEducationStartDate]="userFormDataObj?.educationStartDate"
+    [initialEducationEndDate]="userFormDataObj?.educationEndDate"
+    [submitButtonText]="'Save changes'"
+    (onSubmit)="handleFormSubmit($event)"
+    (onCancel)="closeModal()"
+    [isEditing]="true"
+  ></user-form>
+</kendo-dialog>

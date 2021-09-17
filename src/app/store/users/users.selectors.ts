@@ -10,4 +10,17 @@ export namespace UsersSelectors {
     store,
     (store: UsersStore): User[] => store.users
   );
+
+  export const getAllUsersExcluding = (userName: string | undefined) =>
+    createSelector(store, (store: UsersStore): User[] => {
+      if (!userName) {
+        return store.users;
+      }
+
+      let usersFromStore = [...store.users];
+      return usersFromStore.filter(
+        (userFromStore: User): boolean =>
+          userFromStore.userName.toLowerCase() !== userName.toLowerCase()
+      );
+    });
 }
