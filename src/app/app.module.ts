@@ -26,6 +26,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { PageTitleComponent } from './components/page-title/page-title.component';
 import { ContainerComponent } from './components/container/container.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UsersTableComponent } from './components/users-table/users-table.compon
     ContainerComponent,
     UsersTableComponent,
     UsersPageComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,

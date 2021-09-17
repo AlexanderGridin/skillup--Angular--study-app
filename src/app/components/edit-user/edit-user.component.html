@@ -1,0 +1,16 @@
+<kendo-dialog
+  class="edit-user__dialog"
+  *ngIf="user"
+  [title]="modalTitle"
+  [minWidth]="modalMinWidth"
+  [width]="modalWidth"
+  (close)="closeModal()"
+>
+  <user-form
+    class="edit-user__form"
+    [initialUserName]="user.userName"
+    [submitButtonText]="'Edit'"
+    (onSubmit)="handleFormSubmit($event)"
+    (onCancel)="closeModal()"
+  ></user-form>
+</kendo-dialog>
