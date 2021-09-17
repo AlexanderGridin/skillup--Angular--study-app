@@ -37,16 +37,10 @@ import { getInitialCurrentDate } from 'src/app/utils/get-initial-current-date';
 })
 export class UserFormComponent implements OnInit, OnDestroy {
   @Input() initialUserName: string | undefined = '';
-  @Input() initialGender: FormOption | undefined = {
-    text: 'Select gender',
-    value: '',
-  };
+  @Input() initialGender: FormOption | undefined;
   @Input() initialDateOfBirth: Date | null | undefined =
     getInitialCurrentDate();
-  @Input() initialEducationDirection: FormOption | undefined = {
-    text: 'Select direction of study',
-    value: '',
-  };
+  @Input() initialEducationDirection: FormOption | undefined;
   @Input() initialEducationStartDate: Date | null | undefined =
     getInitialCurrentDate();
   @Input() initialEducationEndDate: Date | null | undefined =
@@ -61,9 +55,19 @@ export class UserFormComponent implements OnInit, OnDestroy {
   private getAllUsersSub!: Subscription;
 
   public form!: FormGroup;
+
   public genderFormOptions: FormOption[] = GENDER_FORM_OPTIONS;
+  public readonly defaultGenderFormOption: FormOption = {
+    text: 'Select gender',
+    value: '',
+  };
+
   public educationDirectionFormOptions: FormOption[] =
     EDUCATION_DIRECTION_FORM_OPTIONS;
+  public readonly defaultEducationDirectionFormOption: FormOption = {
+    text: 'Select direction of study',
+    value: '',
+  };
 
   private readonly DATE_OF_BIRTH_FORM_CONTROL_TITLE: string = 'DateOfBirth';
   private readonly EDUCATION_START_DATE_FORM_CONTROL_TITLE: string =
@@ -82,12 +86,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
   constructor(private store$: Store, private usersService: UsersService) {}
 
   public ngOnInit(): void {
-    this.getAllUsers();
+    this.getUsers();
     this.initForm();
     this.setValidatorsThatRequireFormInitialization();
   }
 
-  private getAllUsers(): void {
+  private getUsers(): void {
     if (this.isEditing) {
       this.getAllUsersSub = this.store$
         .select(UsersSelectors.getAllUsersExcluding(this.initialUserName))

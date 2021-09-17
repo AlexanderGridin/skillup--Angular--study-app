@@ -42,8 +42,6 @@ export class EditUserComponent implements OnInit, OnChanges {
 
   public handleFormSubmit(updatedUser: User): void {
     this.usersStoreService.updateUser(this.user as User, updatedUser);
-    console.log(updatedUser);
-
     this.closeModal();
   }
 
