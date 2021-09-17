@@ -50,8 +50,19 @@
     [style]="style"
   >
     <ng-template kendoGridCellTemplate let-user>
-      <button kendoButton (click)="editUser(user)">Edit</button>
-      <button kendoButton [primary]="true" (click)="removeUser(user)">
+      <button
+        class="users-table__button users-table__button--edit-user"
+        kendoButton
+        (click)="editUser(user)"
+      >
+        Edit
+      </button>
+      <button
+        class="users-table__button users-table__button--remove-user"
+        kendoButton
+        [primary]="true"
+        (click)="removeUser(user)"
+      >
         Remove
       </button>
     </ng-template>

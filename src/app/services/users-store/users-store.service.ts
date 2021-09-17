@@ -22,4 +22,8 @@ export class UsersStoreService {
   public removeUser(user: User): void {
     this.store$.dispatch(UsersActions.removeUser({ user }));
   }
+
+  public updateUser(oldUser: User, updatedUser: User): void {
+    this.store$.dispatch(UsersActions.updateUser({ oldUser, updatedUser }));
+  }
 }

@@ -7,4 +7,8 @@ export namespace UsersActions {
     'REMOVE_USER',
     props<{ user: User }>()
   );
+  export const updateUser = createAction(
+    'UPDATE_USER',
+    props<{ oldUser: User; updatedUser: User }>()
+  );
 }

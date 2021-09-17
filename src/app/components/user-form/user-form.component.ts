@@ -214,7 +214,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.setEducationEndDateValidatorsDependingOnEducationDirectionValue();
   }
 
-  private setEducationEndDateValidatorsDependingOnEducationDirectionValue(): null {
+  private setEducationEndDateValidatorsDependingOnEducationDirectionValue(): void {
     if (
       this.form.controls.educationDirection.value === 'backend' ||
       this.form.controls.educationDirection.value === 'frontend'
@@ -223,14 +223,10 @@ export class UserFormComponent implements OnInit, OnDestroy {
         Validators.required,
       ]);
       this.form.controls.educationEndDate.updateValueAndValidity();
-
-      return null;
+    } else {
+      this.form.controls.educationEndDate.addValidators([Validators.required]);
+      this.form.controls.educationEndDate.updateValueAndValidity();
     }
-
-    this.form.controls.educationEndDate.addValidators([Validators.required]);
-    this.form.controls.educationEndDate.updateValueAndValidity();
-
-    return null;
   }
 
   public handleValueChangeOfEducationStartDate(): void {
@@ -243,14 +239,10 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.form.controls.educationStartDate.updateValueAndValidity();
   }
 
-  public handleSubmit(): null {
-    if (this.form.invalid) {
-      this.handleFormInvalidStatus();
-      return null;
-    }
-
-    this.handleFormValidStatus();
-    return null;
+  public handleSubmit(): void {
+    this.form.invalid
+      ? this.handleFormInvalidStatus()
+      : this.handleFormValidStatus();
   }
 
   private handleFormInvalidStatus(): void {

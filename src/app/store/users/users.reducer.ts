@@ -54,6 +54,27 @@ const _usersReducer = createReducer(
         users,
       };
     }
+  ),
+
+  on(
+    UsersActions.updateUser,
+    (
+      store: UsersStore,
+      { oldUser, updatedUser }: { oldUser: User; updatedUser: User }
+    ): UsersStore => {
+      let usersFromStore: User[] = [...store.users];
+      let users: User[] = usersFromStore.map((userFromStore: User): User => {
+        return userFromStore.userName.toLowerCase() ===
+          oldUser.userName.toLowerCase()
+          ? updatedUser
+          : userFromStore;
+      });
+
+      return {
+        ...store,
+        users,
+      };
+    }
   )
 );
 
