@@ -36,21 +36,26 @@ import { getInitialCurrentDate } from 'src/app/utils/get-initial-current-date';
   styleUrls: ['./user-form.component.css'],
 })
 export class UserFormComponent implements OnInit, OnDestroy {
-  @Input() initialUserName: string = '';
-  @Input() initialGender: FormOption = {
+  @Input() initialUserName: string | undefined = '';
+  @Input() initialGender: FormOption | undefined = {
     text: 'Select gender',
     value: '',
   };
-  @Input() initialDateOfBirth: Date = getInitialCurrentDate();
-  @Input() initialEducationDirection: FormOption = {
+  @Input() initialDateOfBirth: Date | null | undefined =
+    getInitialCurrentDate();
+  @Input() initialEducationDirection: FormOption | undefined = {
     text: 'Select direction of study',
     value: '',
   };
-  @Input() initialEducationStartDate: Date = getInitialCurrentDate();
-  @Input() initialEducationEndDate: Date = getInitialCurrentDate();
+  @Input() initialEducationStartDate: Date | null | undefined =
+    getInitialCurrentDate();
+  @Input() initialEducationEndDate: Date | null | undefined =
+    getInitialCurrentDate();
 
   @Input() submitButtonText: string = 'Submit';
   @Input() cancelButtonText: string = 'Cancel';
+
+  @Input() isEditing: boolean = false;
 
   private users!: User[];
   private getAllUsersSub!: Subscription;
@@ -83,13 +88,25 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   private getAllUsers(): void {
-    this.getAllUsersSub = this.store$
-      .select(UsersSelectors.getAllUsers)
-      .subscribe({
-        next: (usersFromStore: User[]): void => {
-          this.users = usersFromStore;
-        },
-      });
+    if (this.isEditing) {
+      this.getAllUsersSub = this.store$
+        .select(UsersSelectors.getAllUsersExcluding(this.initialUserName))
+        .subscribe({
+          next: (usersFromStore: User[]): void => {
+            this.users = usersFromStore;
+          },
+        });
+    }
+
+    if (!this.isEditing) {
+      this.getAllUsersSub = this.store$
+        .select(UsersSelectors.getAllUsers)
+        .subscribe({
+          next: (usersFromStore: User[]): void => {
+            this.users = usersFromStore;
+          },
+        });
+    }
   }
 
   private initForm(): void {
@@ -101,12 +118,12 @@ export class UserFormComponent implements OnInit, OnDestroy {
         UniqueAmong<User>(this.users, 'userName'),
       ]),
 
-      gender: new FormControl(this.initialGender.value, [Validators.required]),
+      gender: new FormControl(this.initialGender?.value, [Validators.required]),
 
       dateOfBirth: new FormControl(this.initialDateOfBirth),
 
       educationDirection: new FormControl(
-        this.initialEducationDirection.value,
+        this.initialEducationDirection?.value,
         [Validators.required]
       ),
 

@@ -1,6 +1,9 @@
 <page [title]="'Users'">
   <add-user></add-user>
-  <edit-user [user]="userForEditing"></edit-user>
+  <edit-user
+    [user]="userForEditing"
+    (onUserEditingCancel)="handleUserEditingCanceling()"
+  ></edit-user>
   <users-table
     [users]="users"
     (onUserEdit)="handleUserEditing($event)"

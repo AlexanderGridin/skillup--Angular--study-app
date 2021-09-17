@@ -11,7 +11,7 @@ import { UsersStoreService } from 'src/app/services/users-store/users-store.serv
 export class UsersPageComponent implements OnInit, OnDestroy {
   public users!: User[];
   private usersSub!: Subscription;
-  public userForEditing!: User;
+  public userForEditing!: User | null;
 
   constructor(private usersStoreService: UsersStoreService) {}
 
@@ -29,12 +29,14 @@ export class UsersPageComponent implements OnInit, OnDestroy {
 
   public handleUserEditing(user: User): void {
     this.userForEditing = user;
-    console.log(user);
-    console.log(this.userForEditing);
   }
 
   public handleUserRemoving(user: User): void {
     this.usersStoreService.removeUser(user);
+  }
+
+  public handleUserEditingCanceling(): void {
+    this.userForEditing = null;
   }
 
   public ngOnDestroy(): void {

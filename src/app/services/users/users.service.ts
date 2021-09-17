@@ -8,6 +8,9 @@ import { capitalizeFirstLetterOfEachWordInText } from 'src/app/utils/capitalize-
 import { getTextOfFormOptionByValue } from 'src/app/utils/get-text-of-form-option-by-value';
 
 import { EDUCATION_DIRECTION_FORM_OPTIONS } from 'src/app/constants/education-direction-form-options';
+import { GENDER_FORM_OPTIONS } from 'src/app/constants/gender-form-options';
+import { AddUserFormDataObj } from 'src/app/interfaces/add-user-form-data-obj';
+import { getFormOptionByText } from 'src/app/utils/get-form-option-by-text';
 
 @Injectable()
 export class UsersService {
@@ -25,7 +28,7 @@ export class UsersService {
 
     return {
       userName: capitalizeFirstLetterOfEachWordInText(userName),
-      gender: capitalizeFirstLetterOfText(gender),
+      gender: getTextOfFormOptionByValue(GENDER_FORM_OPTIONS, gender),
       dateOfBirth,
       educationDirection: getTextOfFormOptionByValue(
         EDUCATION_DIRECTION_FORM_OPTIONS,
@@ -34,5 +37,34 @@ export class UsersService {
       educationStartDate,
       educationEndDate,
     } as User;
+  }
+
+  public convertUserToAddUserFormDataObj(
+    user: User | null | undefined
+  ): AddUserFormDataObj | null {
+    if (!user) {
+      return null;
+    }
+
+    let {
+      userName,
+      gender,
+      dateOfBirth,
+      educationDirection,
+      educationStartDate,
+      educationEndDate,
+    } = user;
+
+    return {
+      userName,
+      gender: getFormOptionByText(GENDER_FORM_OPTIONS, gender),
+      dateOfBirth,
+      educationDirection: getFormOptionByText(
+        EDUCATION_DIRECTION_FORM_OPTIONS,
+        educationDirection
+      ),
+      educationStartDate,
+      educationEndDate,
+    } as AddUserFormDataObj;
   }
 }

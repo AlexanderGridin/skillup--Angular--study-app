@@ -1,0 +1,24 @@
+import { ValidatorFn } from '@angular/forms';
+import { compareStringsCaseInsensitive } from '../utils/compare-strings-case-insensitive';
+
+export function UniqueAmongExcludingControlValue<T>(
+  data: T[],
+  prop: keyof T
+): ValidatorFn {
+  const validate: ValidatorFn = (control) => {
+    for (let dataItem of data) {
+      const isEqualStrings = compareStringsCaseInsensitive(
+        String(dataItem[prop]),
+        control.value as string
+      );
+
+      if (isEqualStrings) {
+        return { invalidUserNameUniqueness: true };
+      }
+    }
+
+    return null;
+  };
+
+  return validate;
+}
